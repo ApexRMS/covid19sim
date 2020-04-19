@@ -4,7 +4,7 @@
 # Developed by ApexRMS
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
-downloadDate = "2020-04-17"
+downloadDate = "2020-04-18"
 # downloadDate = now()
 # ***************************************************************
 
