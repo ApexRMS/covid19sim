@@ -3,8 +3,11 @@
 #
 # Developed by ApexRMS
 
+# Input: CSV output from the script covid19-analysis.R plus other input CSV files
+# Output: covid19-canada-yyyy-mm-dd.ssim - SyncroSim library with corresponding model inputs
+#
 # ******************* SET THIS DATE BEFORE RUNNING **************
-# downloadDate = "2020-04-18"
+# downloadDate = "2020-04-19"
 downloadDate = now()
 # ***************************************************************
 
@@ -36,7 +39,7 @@ owner = "ApexRMS"
 # Modelling dates
 startDate = "2020-02-12"           # First date of simulation - 
 lastNoControlDate = "2020-03-14"   # Last date for which there are no controls in the No Control scenario
-daysPastDeaths = 14                # Number oif days to simulate forward after the last day with deaths
+daysPastDeaths = 14                # Number of days to simulate forward after the last day with deaths
 
 # Number of realizations
 numRealizations = 1000
@@ -53,7 +56,6 @@ controlScenarios = c(1,2)
 controlScenarioNames = c("Current measures: ", "No control: ")
 
 # Load Data -------------------------
-
 
 # Load and summarize the population data
 filename = paste0(inputFolder, "/deaths-output.csv")
@@ -77,7 +79,7 @@ jurisdictions = populationData %>%
 
 # Start a SyncroSim session
 packagePrefix = paste0(packageName, "_")  # Used to reference internal table names in SyncroSim
-mySession = session()
+mySession = session()  # Uses default session (works on Windows) - otherwise use: session("C:/My SyncroSim install folder")
 
 # Create a new library for the SyncroSim epidemic package
 fileName = paste0(templateFolder, "/", libraryName)
@@ -96,7 +98,7 @@ myDatasheet$EnableMultiprocessing = TRUE
 myDatasheet$MaximumJobs=5
 saveDatasheet(myLibrary, myDatasheet, name = datasheetName)
 
-# Load the default project for this library
+# Load the default project for this library - default project always named "Definitions"
 myProject = project(myLibrary, "Definitions") 
 
 # Set the project properties
@@ -118,12 +120,12 @@ saveDatasheet(myProject, myCharts, "corestime_Charts")
 
 #TODO: make the Chart read-only
 
-# Create a folder in the library for the Extra scenarios (using SyncroSim console command)
+# Create a folder in the library for the Extra scenarios (using command function to call SyncroSim console)
 args = list(create=NULL, folder=NULL, lib=filepath(myLibrary), name="Other Scenarios", tpid=projectId(myProject))
 return = command(args, session=mySession)
 otherFolderId = as.numeric(strsplit(return, ": ")[[1]][2])
 
-# Create a folder in the library for each jurisdiction (using SyncroSim console command)
+# Create a folder in the library for each jurisdiction (using SyncroSim command function)
 for (jurName in jurisdictions$jurisdiction){
   args = list(create=NULL, folder=NULL, lib=filepath(myLibrary), name=jurName, tfid=otherFolderId)
   return = command(args, session=mySession)
@@ -134,16 +136,15 @@ for (jurName in jurisdictions$jurisdiction){
 
 # Scenario Datafeeds ------------------------------
 
-# Create a scenario for each jurisdiction, control scenario and fatality level
+# Create a scenario for each combination of jurisdiction, control scenario and fatality level scenario
 for (jur in jurisdictions$jurisdiction){
   for (control in controlScenarios) {
     for (fatality in fatalityScenarios) {
-      # Create the first scenario
-      # jur = jurisdictions$jurisdiction[1]; control = controlScenarios[2]; fatality = fatalityScenarios[1]
+      # Loop testing: jur = jurisdictions$jurisdiction[1]; control = controlScenarios[1]; fatality = fatalityScenarios[1]
       
       jurName = jurisdictions$name[jurisdictions$jurisdiction==jur]
       
-      # Create a new scenario and set properties
+      # Create a new scenario and set the owner
       scenarioName = paste0(controlScenarioNames[control],jurName,fatalityScenarioNames[fatality])
       myScenario = scenario(myProject, scenario = scenarioName)
       owner(myScenario) = owner
@@ -155,7 +156,7 @@ for (jur in jurisdictions$jurisdiction){
         command(args, session=mySession)
       }
 
-      # Generate a scenario description
+      # Build up a scenario description
       description = paste0("Death data downloaded from https://github.com/ishaberry/Covid19Canada at ", downloadDate, ".")
       if (control == 2) {
         description = paste(description,
@@ -185,7 +186,6 @@ for (jur in jurisdictions$jurisdiction){
       description = paste(description, "Additional details on the model parameterization can be found at www.modelthecurve.ca", sep="\n")
       description(myScenario) = description
 
-      
       # Deaths --------------------------------------------------------------
       filename = paste0(inputFolder, "/deaths-output.csv")
       deathData = read.csv(filename, stringsAsFactors=F)
@@ -219,7 +219,6 @@ for (jur in jurisdictions$jurisdiction){
       saveDatasheet(myScenario, myDatasheet, name = datasheetName)
       
       # Population ------------------------------------------------------------------------
-      
       datasheetName = "Population"
       datasheetName = paste0(packagePrefix, "Population")
       myDatasheet = populationData %>%
@@ -270,7 +269,6 @@ for (jur in jurisdictions$jurisdiction){
       
       # Growth -------------------------------------------------------------
       datasheetName = paste0(packagePrefix, "GrowthRate")
-      
       if (control == 2){
         # No control scenario: growth rate using regression model
         myDatasheet = datasheet(myScenario, name = datasheetName, optional = F, empty = T)

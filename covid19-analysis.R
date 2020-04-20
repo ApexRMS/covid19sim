@@ -2,6 +2,14 @@
 # covid19-analysis.R: Preparing model inputs for use in the SyncroSim "epidemic" package 
 #
 # Developed by ApexRMS
+#
+# Inputs:
+#  International daily COVID-19 death data downloaded from https://github.com/CSSEGISandData/COVID-19
+#  Canadian COVID-19 death data downloaded from https://github.com/ishaberry/Covid19Canada
+#  Infection fatality rates from Verity et al (2020)
+#  Canadian population data (from Statistics Canada)
+#  World population data (from United Nations)
+# Outputs: various CSV files summarizing the data (as required by the script covid19-ssim-template.R)
 
 # Setup -------------------------
 
@@ -295,6 +303,10 @@ deathsUS = left_join(deathsUS, deathsUSLagged) %>%
 
 # Join world, US and Canada
 deaths = bind_rows(deathsCanada, deathsUS, deathsWorld)
+
+# Optionally remove some more recent deaths for retrospective analysis
+# lastDate = ymd("2020-04-18")
+# deaths = deaths %>% filter(date <= lastDate)
 
 # Add population data
 deaths = left_join(deaths, population) %>%
