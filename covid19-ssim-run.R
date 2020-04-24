@@ -51,6 +51,12 @@ sourceFileName = paste0(templateFolder, "/", libraryName, ".ssim")
 libraryFileName = paste0(runFolder, "/", libraryName, "-run.ssim")
 file.copy(sourceFileName, libraryFileName, overwrite = T)
 
+# Delete previous temp folder - otherwise old cached chart results remain
+tempFolder = paste0(libraryFileName,".temp")
+if (dir.exists(file.path(tempFolder))) {
+  unlink(tempFolder, recursive = TRUE)
+}
+
 # Start a SyncroSim session
 packagePrefix = paste0(packageName, "_")  # Used to reference internal table names in SyncroSim
 mySession = session()
@@ -150,3 +156,5 @@ write_csv(deaths_cumulative_all, append=T, paste0(outputFolder, "/", "deaths-cum
 write_csv(deaths_daily_all, append=T, paste0(outputFolder, "/", "deaths-daily-model-output.csv"))
 write_csv(infected_cumulative_all, append=T, paste0(outputFolder, "/", "infected-cumulative-model-output.csv"))
 write_csv(infected_daily_all, append=T, paste0(outputFolder, "/", "infected-daily-model-output.csv"))
+
+

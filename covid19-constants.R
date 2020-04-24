@@ -19,8 +19,9 @@ jurisdictionsFocalWorldUS = c("Italy", "Spain", "France", "South Korea", "United
 jurisdictionsFocalCanada = c("Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
 
 # Jurisdictions to be used for reference in the growth rate scenarios
-jurisdictionsGrowthReference1 = c("Italy", "Spain", "France", "South Korea", "United States")
-jurisdictionsGrowthReference2 = c("Italy", "Spain", "France", "South Korea")
+jurisdictionsGrowthReference = c("Italy", "Spain", "France", "South Korea", "United States")   # Complete list (for analysis)
+jurisdictionsGrowthReference1 = c("Italy", "Spain", "France", "South Korea", "United States")  # Partial list (for library sampling)
+jurisdictionsGrowthReference2 = c("Italy", "Spain", "France", "South Korea")                   # Another partial list
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReference1,
                                     "Canada - Alberta" = jurisdictionsGrowthReference2,

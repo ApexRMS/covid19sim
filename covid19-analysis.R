@@ -76,8 +76,8 @@ populationDetailCanadaRaw = read_csv(paste0(inputFolder, "/", "population_detail
 # Load fatality data (from Verity et al 2020)
 fatalityRates = read_csv(paste0(inputFolder, "/", "fatality-rates.csv")) %>%
   rename(fatality_mean=mean, fatality_lower=lower, fatality_upper=upper)
-fatalityRatesCases = read_csv(paste0(inputFolder, "/", "fatality-rates-cases.csv")) %>%
-  rename(fatality_cases_mean=mean, fatality_cases_lower=lower, fatality_cases_upper=upper)
+# fatalityRatesCases = read_csv(paste0(inputFolder, "/", "fatality-rates-cases.csv")) %>%
+#   rename(fatality_cases_mean=mean, fatality_cases_lower=lower, fatality_cases_upper=upper)
 
 # Load Canada mortality data (From https://github.com/ishaberry/Covid19Canada)
 mortalityDataRaw = read_csv(paste0(dataFolder, "/", "mortality.csv"))
@@ -91,8 +91,8 @@ mortalityDataRaw$province[mortalityDataRaw$province=="PEI"] = "Prince Edward Isl
 # Population & fatality ---------------
 
 # Compute weighted mean fatality for Canadian jurisdictions
-fatalityRatesCases = select(fatalityRatesCases, -age_min, -age_max)
-fatalityRates = left_join(fatalityRates, fatalityRatesCases)
+# fatalityRatesCases = select(fatalityRatesCases, -age_min, -age_max)
+# fatalityRates = left_join(fatalityRates, fatalityRatesCases)
 
 populationDetailCanada = populationDetailCanadaRaw %>% 
   filter(Sex=="Both sexes") %>%
@@ -112,10 +112,10 @@ fatalityRatesCanada <- populationDetailCanada %>%
   group_by(jurisdiction) %>%
   summarize(fatality_mean=weighted.mean(fatality_mean, population),
             fatality_mean_lower=weighted.mean(fatality_lower, population),
-            fatality_mean_upper=weighted.mean(fatality_upper, population),
-            fatality_cases_mean=weighted.mean(fatality_cases_mean, population),
-            fatality_cases_mean_lower=weighted.mean(fatality_cases_lower, population),
-            fatality_cases_mean_upper=weighted.mean(fatality_cases_upper, population))
+            fatality_mean_upper=weighted.mean(fatality_upper, population))
+            # fatality_cases_mean=weighted.mean(fatality_cases_mean, population),
+            # fatality_cases_mean_lower=weighted.mean(fatality_cases_lower, population),
+            # fatality_cases_mean_upper=weighted.mean(fatality_cases_upper, population))
 
 # Write to file
 write_csv(fatalityRatesCanada, paste0(outputFolder, "/", "fatality-canada-output.csv"))
@@ -205,7 +205,7 @@ deathsDetailedCanada$age=recode(deathsDetailedCanada$age, .default="Other",
                                 "104"     = "80+",
                                 "Not Reported" = "Not Reported")
 unique(deathsDetailedCanada$age)
-if("Other" %in% unique(deathsDetailedCanada$age)) warning("******* There are Other ages to fix *********")
+# if("Other" %in% unique(deathsDetailedCanada$age)) warning("******* There are Other ages to fix *********")
 deathsDetailedCanada$age=recode(deathsDetailedCanada$age, "Not Reported" = "")
 deathsDetailedCanada$age=recode(deathsDetailedCanada$age, "Other" = "")
 unique(deathsDetailedCanada$age)

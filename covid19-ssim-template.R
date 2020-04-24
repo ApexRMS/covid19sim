@@ -158,7 +158,7 @@ for (jur in jurisdictions$jurisdiction){
       }
 
       # Build up a scenario description
-      description = paste0("Death data downloaded from https://github.com/ishaberry/Covid19Canada at ", runDate, ".")
+      description = paste0("Death data downloaded from https://github.com/ishaberry/Covid19Canada on ", runDate, ".")
       if (control == 2) {
         description = paste(description,
             paste0("Only death data up to and including ", as.character(ymd(lastNoControlDate) + days(infectionPeriod)), " are included. ",
