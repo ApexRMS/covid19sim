@@ -11,7 +11,7 @@ infectionPeriod = 23        # Delay between infection and death (for analysis)
 
 pcDenominatorDeaths = 1000000    # Denominator in the per capita calculations for deaths
 pcDenominatorCases = 100000    # Denominator in the per capita calculations for cases
-pcDenominatorTests = 1000 # Denominator in the per capita calculations for tests
+pcDenominatorTests= 1000 # Denominator in the per capita calculations for tests
 
 # Jurisdictions to be included in plots
 jurisdictionsFocalWorld = c("Italy", "Spain", "France", "South Korea", "Canada")
@@ -19,8 +19,14 @@ jurisdictionsFocalWorldUS = c("Italy", "Spain", "France", "South Korea", "United
 jurisdictionsFocalCanada = c("Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
 
 # Jurisdictions to be used for reference in the growth rate scenarios
-jurisdictionsGrowthReference = c("Italy", "Spain", "France", "South Korea")
+jurisdictionsGrowthReference1 = c("Italy", "Spain", "France", "South Korea", "United States")
+jurisdictionsGrowthReference2 = c("Italy", "Spain", "France", "South Korea")
 
+jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReference1,
+                                    "Canada - Alberta" = jurisdictionsGrowthReference2,
+                                    "Canada - British Columbia" = jurisdictionsGrowthReference2,
+                                    "Canada - Ontario" = jurisdictionsGrowthReference1,
+                                    "Canada - Quebec" = jurisdictionsGrowthReference1)
 # Jurisdictions to be included in growth regressions
 jurisdictionsRegression = c("Italy", "Spain", "France", "South Korea",
                             "Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")

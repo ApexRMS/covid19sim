@@ -9,8 +9,9 @@
 #   appended summary output to various CSV files
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
-# runDate = "2020-04-19"
-runDate = now()
+# This should be the day after the last death data
+# runDate = "2020-04-22"
+runDate = today()
 # ***************************************************************
 # Setup -------------------------
 
@@ -64,10 +65,10 @@ scenarioNames = paste0(scenarioNamePrefix, jurisdictionsModel, scenarioNameSuffi
 # Run scenarios --------------------------------------
 
 # Clear object gathering all the output
-if (exists("deaths_cumulative")) { remove(deaths_cumulative)}
-if (exists("deaths_daily")) { remove(deaths_daily)}
-if (exists("infected_cumulative")) { remove(infected_cumulative)}
-if (exists("infected_daily")) { remove(infected_daily)}
+if (exists("deaths_cumulative_all")) { remove(deaths_cumulative_all)}
+if (exists("deaths_daily_all")) { remove(deaths_daily_all)}
+if (exists("infected_cumulative_all")) { remove(infected_cumulative_all)}
+if (exists("infected_daily_all")) { remove(infected_daily_all)}
 
 # Repeat for all jurisdictions
 for (name in scenarioNames) {

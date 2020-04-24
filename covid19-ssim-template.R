@@ -7,8 +7,9 @@
 # Output: covid19-canada-yyyy-mm-dd.ssim - SyncroSim library with corresponding model inputs
 #
 # ******************* SET THIS DATE BEFORE RUNNING **************
-# downloadDate = "2020-04-19"
-downloadDate = now()
+# This should be the day after the last death data
+# runDate = "2020-04-23"
+runDate = today()
 # ***************************************************************
 
 
@@ -86,9 +87,9 @@ fileName = paste0(templateFolder, "/", libraryName)
 myLibrary = ssimLibrary(fileName, session = mySession, package = packageName, overwrite = T)
 
 # Set the library properties
-name(myLibrary) = paste0("COVID-19 Canada (", date(downloadDate), ")")
+name(myLibrary) = paste0("COVID-19 Canada (", date(runDate), ")")
 owner(myLibrary) = owner
-description(myLibrary) = paste0("COVID-19 simulation scenarios generated at ", downloadDate,
+description(myLibrary) = paste0("COVID-19 simulation scenarios generated on ", runDate,
                                 ". \n \nAdditional details on the approach used can be found at www.modelthecurve.ca")
 
 # Turn library multiprocessing on
@@ -140,7 +141,7 @@ for (jurName in jurisdictions$jurisdiction){
 for (jur in jurisdictions$jurisdiction){
   for (control in controlScenarios) {
     for (fatality in fatalityScenarios) {
-      # Loop testing: jur = jurisdictions$jurisdiction[1]; control = controlScenarios[1]; fatality = fatalityScenarios[1]
+      # Loop testing: jur = jurisdictions$jurisdiction[3]; control = controlScenarios[1]; fatality = fatalityScenarios[1]
       
       jurName = jurisdictions$name[jurisdictions$jurisdiction==jur]
       
@@ -157,7 +158,7 @@ for (jur in jurisdictions$jurisdiction){
       }
 
       # Build up a scenario description
-      description = paste0("Death data downloaded from https://github.com/ishaberry/Covid19Canada at ", downloadDate, ".")
+      description = paste0("Death data downloaded from https://github.com/ishaberry/Covid19Canada at ", runDate, ".")
       if (control == 2) {
         description = paste(description,
             paste0("Only death data up to and including ", as.character(ymd(lastNoControlDate) + days(infectionPeriod)), " are included. ",
@@ -167,13 +168,13 @@ for (jur in jurisdictions$jurisdiction){
                    as.character(ymd(lastNoControlDate) + days(infectionPeriod)), "."), sep="\n")
       }
       if (control == 1) {
-        paste(jurisdictionsGrowthReference, collapse = ', ')
+        paste(jurisdictionsGrowthReferenceList[[jur]], collapse = ', ')
         refCountriesString = paste
         description = paste(description,
             paste0("Growth rate after last date with deaths is set to the observed distribution of rates from ",
-            paste(jurisdictionsGrowthReference, collapse = ', '),"."), sep="\n")
+            paste(jurisdictionsGrowthReferenceList[[jur]], collapse = ', '),"."), sep="\n")
         description = paste(description,
-            paste0("Growth rates for other countries downloaded from https://github.com/CSSEGISandData/COVID-19 at ", downloadDate, "."), sep="\n")
+            paste0("Growth rates for other countries downloaded from https://github.com/CSSEGISandData/COVID-19 on ", runDate, "."), sep="\n")
       }
       if (fatality == 1) {
         description = paste(description,
@@ -289,9 +290,9 @@ for (jur in jurisdictions$jurisdiction){
         for (iter in seq(1,numRealizations)) {
           # Sample from growth rates from other countries for each realization
           # iter = 1
-          len = length(jurisdictionsGrowthReference)
+          len = length(jurisdictionsGrowthReferenceList[[jur]])
           index = sample(1:len,1)
-          refJur = jurisdictionsGrowthReference[index]
+          refJur = jurisdictionsGrowthReferenceList[[jur]][index]
           growthDataFiltered = filter(growthData, scenario == refJur)
           tempData = data.frame(Iteration=iter, Timestep = growthDataFiltered$date, Jurisdiction=as.character(jur), Value=growthDataFiltered$rate)
           myDatasheet = rbind(myDatasheet, tempData)

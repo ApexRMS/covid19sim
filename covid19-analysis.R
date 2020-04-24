@@ -352,6 +352,7 @@ deathsOntarioRecent = filter(deathComparison, province_state=="Ontario", date>="
 generateGrowthScenario  <- function(jur, jurRef) {
   # jur = string for jurisdiction for which to generate scenario
   # jurRef = string for jurisdiction to act as the reference scenario in future
+  # jur="Canada - Alberta"; jurRef="South Korea"
   
   # Extract jurisdiction's growth rates (ignoring first day)
   growthActual = deaths %>%
@@ -370,9 +371,15 @@ generateGrowthScenario  <- function(jur, jurRef) {
   
   # Now find the earliest day for which reference growth rate <= current actual rate
   growthRefLowerTest = growthRef %>% filter(rate <= lastRateActual)
-  firstDayRef = min(growthRefLowerTest$day_model)
-  firstDateRef = growthRefLowerTest$date[growthRefLowerTest$day_model==firstDayRef]
-  
+  if (nrow(growthRefLowerTest) > 0) {
+    firstDayRef = min(growthRefLowerTest$day_model)
+  } else {
+    # If the reference growth rates all > current actual rate, set reference date to last possible
+    print("Using last reference day")
+    firstDayRef = max(growthRef$day_model)
+  }
+  firstDateRef = growthRef$date[growthRef$day_model==firstDayRef]
+
   # Extract all the reference rates that start on this day
   growthRefLower = growthRef %>% filter(day_model >= firstDayRef)
   
