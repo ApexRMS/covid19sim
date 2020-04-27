@@ -90,7 +90,7 @@ myLibrary = ssimLibrary(fileName, session = mySession, package = packageName, ov
 name(myLibrary) = paste0("COVID-19 Canada (", date(runDate), ")")
 owner(myLibrary) = owner
 description(myLibrary) = paste0("COVID-19 simulation scenarios generated on ", runDate,
-                                ". \n \nAdditional details on the approach used can be found at www.modelthecurve.ca")
+                                ". \n \nAdditional details on the approach used can be found at www.apexrms.com/covid19")
 
 # Turn library multiprocessing on
 datasheetName = "core_Multiprocessing"
@@ -184,7 +184,7 @@ for (jur in jurisdictions$jurisdiction){
         description = paste(description,
             "Fatality rate is 50% higher than the age-weighted value from Verity et al (2020).", sep="\n")
       }
-      description = paste(description, "Additional details on the model parameterization can be found at www.modelthecurve.ca", sep="\n")
+      description = paste(description, "Additional details on the model parameterization can be found at www.apexrms.com/covid19", sep="\n")
       description(myScenario) = description
 
       # Deaths --------------------------------------------------------------
