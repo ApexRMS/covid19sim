@@ -8,7 +8,7 @@
 #
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
-# runDate = "2020-04-23"
+# runDate = "2020-04-28"
 runDate = today()
 # ***************************************************************
 
@@ -141,7 +141,7 @@ for (jurName in jurisdictions$jurisdiction){
 for (jur in jurisdictions$jurisdiction){
   for (control in controlScenarios) {
     for (fatality in fatalityScenarios) {
-      # Loop testing: jur = jurisdictions$jurisdiction[3]; control = controlScenarios[1]; fatality = fatalityScenarios[1]
+      # Loop testing: jur = jurisdictions$jurisdiction[1]; control = controlScenarios[1]; fatality = fatalityScenarios[1]
       
       jurName = jurisdictions$name[jurisdictions$jurisdiction==jur]
       
@@ -282,21 +282,24 @@ for (jur in jurisdictions$jurisdiction){
       } else {
         # Current measures scenario: growth rate sampled from other countries
         myDatasheet = datasheet(myScenario, name = datasheetName, optional = T)
-        fileName = paste0(inputFolder, "/growth-canada-output.csv")
+        fileName = paste0(growthFolder, "/growth-canada-output.csv")
         growthData = read.csv(fileName)
         growthData$date = as.character(growthData$date)
         growthData = filter(growthData, jurisdiction == jur)
+        tempData = rename(growthData, Iteration=iteration, Timestep=date, Jurisdiction=jurisdiction, Value=rate) %>%
+          select(Iteration, Timestep, Jurisdiction, Value)
+        myDatasheet = bind_rows(myDatasheet, tempData)
         
-        for (iter in seq(1,numRealizations)) {
-          # Sample from growth rates from other countries for each realization
-          # iter = 1
-          len = length(jurisdictionsGrowthReferenceList[[jur]])
-          index = sample(1:len,1)
-          refJur = jurisdictionsGrowthReferenceList[[jur]][index]
-          growthDataFiltered = filter(growthData, scenario == refJur)
-          tempData = data.frame(Iteration=iter, Timestep = growthDataFiltered$date, Jurisdiction=as.character(jur), Value=growthDataFiltered$rate)
-          myDatasheet = rbind(myDatasheet, tempData)
-        }
+        # for (iter in seq(1,numRealizations)) {
+        #   # Sample from growth rates from other countries for each realization
+        #   # iter = 1
+        #   len = length(jurisdictionsGrowthReferenceList[[jur]])
+        #   index = sample(1:len,1)
+        #   refJur = jurisdictionsGrowthReferenceList[[jur]][index]
+        #   growthDataFiltered = filter(growthData, scenario == refJur)
+        #   tempData = data.frame(Iteration=iter, Timestep = growthDataFiltered$date, Jurisdiction=as.character(jur), Value=growthDataFiltered$rate)
+        #   myDatasheet = rbind(myDatasheet, tempData)
+        # }
       }
       saveDatasheet(myScenario, myDatasheet, name = datasheetName)
       print(name(myScenario))

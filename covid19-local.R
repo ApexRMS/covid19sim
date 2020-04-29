@@ -24,3 +24,6 @@ templateFolder = "C:/covid19/templates"
 
 # Folder for website files
 runFolder = "C:/covid19/runs"
+
+# Folder for growth scenario files
+growthFolder = "C:/covid19/data"

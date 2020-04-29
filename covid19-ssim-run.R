@@ -10,8 +10,8 @@
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
-# runDate = "2020-04-22"
-runDate = today()
+runDate = "2020-04-28"
+# unDate = today()
 # ***************************************************************
 # Setup -------------------------
 

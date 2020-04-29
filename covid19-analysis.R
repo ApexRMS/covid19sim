@@ -352,30 +352,51 @@ deathsOntarioRecent = filter(deathComparison, province_state=="Ontario", date>="
 generateGrowthScenario  <- function(jur, jurRef) {
   # jur = string for jurisdiction for which to generate scenario
   # jurRef = string for jurisdiction to act as the reference scenario in future
-  # jur="Canada - Alberta"; jurRef="South Korea"
+  # jur="Canada - British Columbia"; jurRef="South Korea"
   
-  # Extract jurisdiction's growth rates (ignoring first day)
+  # Extract jurisdiction's actual daily growth rates (ignoring first day)
+  # growthActual = deaths %>%
+  #   filter(jurisdiction == jur, day_model > 8, deaths_growth_ma7 >= 0) %>%
+  #   rename(rate=deaths_growth_ma7) %>%
+  #   select(jurisdiction, date, day_model, rate)
+
+  # NEW WAY: Set the last actual rate to be the 3-day moving average on one of the last 5 days of actual values
+  # This introduces some uncertainty in the actual growth rate for the last day of actual values
+  # Should eventually replace this with a proper estimate of the growth rate distribution
   growthActual = deaths %>%
-    filter(jurisdiction == jur, day_model > 8, deaths_growth_ma7 >= 0) %>%
-    rename(rate=deaths_growth_ma7) %>%
+    filter(jurisdiction == jur, day_model > 4) %>%
+    rename(rate=deaths_growth_ma3) %>%
     select(jurisdiction, date, day_model, rate)
   lastDayActual = max(growthActual$day_model)
   lastDateActual = growthActual$date[growthActual$day_model==lastDayActual]
-  lastRateActual = growthActual$rate[growthActual$day_model == lastDayActual]
+  lastDayActualSample = lastDayActual - sample(0:5,1)   # Go back 5-days when using a 3-day moving average
+  # END OF NEW WAY
   
-  # Extract reference jurisdiction's growth rates
+  # OLD WAY: Set the last actual rate to be the 7-day moving average on the last day of actual rates
+  # growthActual = deaths %>%
+  #   filter(jurisdiction == jur, day_model > 0) %>%
+  #   rename(rate=deaths_growth_ma7) %>%
+  #   select(jurisdiction, date, day_model, rate)
+  # lastDayActual = max(growthActual$day_model)
+  # lastDateActual = growthActual$date[growthActual$day_model==lastDayActual]
+  # lastDayActualSample = lastDayActual
+  # END OF OLD WAY
+
+  lastRateActualSample = growthActual$rate[growthActual$day_model == lastDayActualSample]
+  
+  # Extract reference jurisdiction's 7-day moving average growth rates
   growthRef = deaths %>%
     filter(jurisdiction == jurRef, day_model > 8, deaths_growth_ma7 >= 0) %>%
     rename(rate=deaths_growth_ma7) %>%
     select(jurisdiction, date, day_model, rate)
-  
-  # Now find the earliest day for which reference growth rate <= current actual rate
-  growthRefLowerTest = growthRef %>% filter(rate <= lastRateActual)
+
+  # Now find the earliest day for which reference growth rate <= current actual sampled rate
+  growthRefLowerTest = growthRef %>% filter(rate <= lastRateActualSample)
   if (nrow(growthRefLowerTest) > 0) {
     firstDayRef = min(growthRefLowerTest$day_model)
   } else {
     # If the reference growth rates all > current actual rate, set reference date to last possible
-    print("Using last reference day")
+    # print("Using last reference day")
     firstDayRef = max(growthRef$day_model)
   }
   firstDateRef = growthRef$date[growthRef$day_model==firstDayRef]
@@ -400,18 +421,21 @@ generateGrowthScenario  <- function(jur, jurRef) {
 # Clear object gathering all the growth scenarios
 if (exists("allGrowthScenarios")) { remove(allGrowthScenarios) }
 
-for (jurRef in jurisdictionsGrowthReference) {
-  for (jur in jurisdictionsFocalCanada) {
+for (jur in jurisdictionsFocalCanada) {
+  print(paste0("Jurisdiction: ", jur))
+  for (iter in seq(1,1000)) {
     
+    # Randomly select a reference jurisdiction for each iteration
+    jurRef = sample(jurisdictionsGrowthReferenceList[[jur]],1)
+
     # Generate new scenario
-    print(paste0("Scenario: ", jurRef, " : ", jur))
     growthScenario = generateGrowthScenario(jur, jurRef)
     
     # Fix up the scenario, jurisdiction and source fields
     growthScenario = growthScenario %>% 
       rename(source = jurisdiction) %>%
-      mutate(scenario = jurRef, jurisdiction=jur) %>%
-      select(scenario, jurisdiction, source, date, day_model, rate)
+      mutate(scenario = jurRef, jurisdiction=jur, iteration=iter) %>%
+      select(scenario, jurisdiction, source, date, day_model, iteration, rate)
     
     # Add scenario to previously generated scenarios
     if (exists("allGrowthScenarios")) {
@@ -419,11 +443,11 @@ for (jurRef in jurisdictionsGrowthReference) {
     } else {
       allGrowthScenarios = growthScenario
     }
-  }
-}
+  }  # next iter
+}  # next jur
 
 # Write to file
-write_csv(allGrowthScenarios, paste0(outputFolder, "/", "growth-canada-output.csv"))
+write_csv(allGrowthScenarios, paste0(growthFolder, "/", "growth-canada-output.csv"))
 
 
 # Death regression ----------------
