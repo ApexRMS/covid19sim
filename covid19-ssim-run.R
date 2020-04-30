@@ -8,17 +8,18 @@
 #   covid19-canada-run-yyyy-mm-dd.ssim - a copy of the input library file with results
 #   appended summary output to various CSV files
 
-# ******************* SET THIS DATE BEFORE RUNNING **************
-# This should be the day after the last death data
-runDate = "2020-04-28"
-# unDate = today()
-# ***************************************************************
 # Setup -------------------------
 
 library(rsyncrosim)
 library(tidyverse)
 library(lubridate)
 library(rstudioapi)
+
+# ******************* SET THIS DATE BEFORE RUNNING **************
+# This should be the day after the last death data
+runDate = "2020-04-29"
+# runDate = today()
+# ***************************************************************
 
 # Set the working directory to the script's folder (works only in RStudio)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -62,7 +63,7 @@ packagePrefix = paste0(packageName, "_")  # Used to reference internal table nam
 mySession = session()
 
 # Open copy of library to run for output
-myLibrary = ssimLibrary(libraryFileName, session = mySession)
+myLibrary = ssimLibrary(libraryFileName, session = mySession, package = "epidemic")
 
 # Generate a list of the scenario names to run
 scenarioNames = paste0(scenarioNamePrefix, jurisdictionsModel, scenarioNameSuffix)

@@ -421,7 +421,8 @@ generateGrowthScenario  <- function(jur, jurRef) {
 # Clear object gathering all the growth scenarios
 if (exists("allGrowthScenarios")) { remove(allGrowthScenarios) }
 
-for (jur in jurisdictionsFocalCanada) {
+for (jur in jurisdictionsModel) {
+  # Loop over every jurisdiction to be included in the model
   print(paste0("Jurisdiction: ", jur))
   for (iter in seq(1,1000)) {
     

@@ -6,19 +6,18 @@
 # Input: CSV output from the script covid19-analysis.R plus other input CSV files
 # Output: covid19-canada-yyyy-mm-dd.ssim - SyncroSim library with corresponding model inputs
 #
-# ******************* SET THIS DATE BEFORE RUNNING **************
-# This should be the day after the last death data
-# runDate = "2020-04-28"
-runDate = today()
-# ***************************************************************
-
-
-# Setup -------------------------
-
 library(rsyncrosim)
 library(tidyverse)
 library(lubridate)
 library(rstudioapi)
+
+# ******************* SET THIS DATE BEFORE RUNNING **************
+# This should be the day after the last death data
+runDate = "2020-04-29"
+# runDate = today()
+# ***************************************************************
+
+# Setup -------------------------
 
 # Set the working directory to the script's folder (works only in RStudio)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
