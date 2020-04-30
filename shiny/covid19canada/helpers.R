@@ -1,12 +1,6 @@
 # Shiny application for SyncroSim epidemic package COVID-19 output.
-# Copyright © 2007-2020 Apex Resource Management Solutions Ltd. (ApexRMS). All rights reserved.
+# Copyright ? 2007-2020 Apex Resource Management Solutions Ltd. (ApexRMS). All rights reserved.
 # The TERMS OF USE and END USER LICENSE AGREEMENT for this software can be found in the LICENSE file.
-
-DATA_DIR_NAME = "data"
-INFECTED_DAILY_FILE_NAME = "infected-daily-model-output.csv"
-INFECTED_CUMULATIVE_FILE_NAME = "infected-cumulative-model-output.csv"
-DEATHS_DAILY_FILE_NAME = "deaths-daily-model-output.csv"
-DEATHS_CUMULATIVE_FILE_NAME = "deaths-cumulative-model-output.csv"
 
 .get_data_dir <- function(){
   
