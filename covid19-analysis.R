@@ -448,7 +448,7 @@ for (jur in jurisdictionsModel) {
 }  # next jur
 
 # Write to file
-write_csv(allGrowthScenarios, paste0(growthFolder, "/", "growth-canada-output.csv"))
+write_csv(allGrowthScenarios, paste0(growthFolder, "/", "growth-output.csv"))
 
 
 # Death regression ----------------

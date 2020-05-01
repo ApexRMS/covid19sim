@@ -13,8 +13,8 @@ library(rstudioapi)
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
-runDate = "2020-04-29"
-# runDate = today()
+# runDate = "2020-04-29"
+runDate = today()
 # ***************************************************************
 
 # Setup -------------------------
@@ -206,6 +206,8 @@ for (jur in jurisdictions$jurisdiction){
       # Run Control -------------------------------------------------------------------------
       datasheetName = paste0(packagePrefix, "RunControl")
       myDatasheet = datasheet(myScenario, name = datasheetName)
+      myDatasheet$StartDate = as.character(myDatasheet$StartDate)  # Bug in package - returns a logical
+      myDatasheet$EndDate = as.character(myDatasheet$EndDate)  # Bug in package - returns a logical
       myDatasheet = add_row(myDatasheet,
                                       MinimumIteration=1,
                                       MaximumIteration=numRealizations, 
@@ -281,7 +283,7 @@ for (jur in jurisdictions$jurisdiction){
       } else {
         # Current measures scenario: growth rate sampled from other countries
         myDatasheet = datasheet(myScenario, name = datasheetName, optional = T)
-        fileName = paste0(growthFolder, "/growth-canada-output.csv")
+        fileName = paste0(growthFolder, "/growth-output.csv")
         growthData = read.csv(fileName)
         growthData$date = as.character(growthData$date)
         growthData = filter(growthData, jurisdiction == jur)
