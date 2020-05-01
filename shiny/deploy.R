@@ -4,14 +4,17 @@
 
 # This script copies the most up-to-date model outputs from the "data" folder to the "shiny/covid19canada/data" folder
 
+# Set the working directory to the script's folder (works only in RStudio)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 # Get output files from "data" folder
-outputFiles <- list.files("data/", pattern="model-output")
+outputFiles <- list.files(paste0(dirname(getwd()), "/data/"), pattern="model-output")
 
 # Confirm there are exactly 4 output files
 if(!length(outputFiles) == 4){stop(paste("There are", length(outputFiles), "output files, instead of 4"))}
 
 # Copy files to "shiny/covid19canada/data" folder
-file.copy(paste0("data/", outputFiles), "shiny/covid19canada/data", overwrite=T)
+file.copy(paste0(dirname(getwd()), "/data/", outputFiles), "covid19canada/data", overwrite=T)
 
 # deploy the app
 library(rsconnect)
