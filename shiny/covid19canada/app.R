@@ -13,9 +13,6 @@ library(RColorBrewer)
 library(shinyWidgets)
 library(cowplot)
 
-# Working directory
-setwd("shiny/covid19canada")
-
 # Input parameters
 brewer.pal(n = 8, name = "Dark2")
 jurisdictionLineColor <- c("Canada"="red3","Canada - Alberta"="#666666", "Canada - British Columbia"="#A6761D", "Canada - Ontario"="#1B9E77", "Canada - Quebec"="#D95F02", "Observed" = "white", "Modeled" = "black")
@@ -67,7 +64,7 @@ whiteTheme <- theme(panel.background = element_rect(fill = NA),
 #### UI ####
 ui <- fluidPage(
   
-  titlePanel(h2("COVID-19 Forecasts using SyncroSim", align="center")), 
+  br(),
   
   sidebarLayout(
     
@@ -88,11 +85,26 @@ ui <- fluidPage(
                      status = "primary",
                      width="100%"),
       
-      p("The projections shown on this page are made using the", a(href="https://syncrosim.com/", "SyncroSim"), "model framework. To find out more about the specifics of this model visit", a(href="http://www.apexrms.com/covid19/", "http://www.apexrms.com/covid19/"), ".", strong("Note that the simulation results presented here are simply a demonstration of the model framework, and should not be considered actual predictions for any of these jurisdictions."))),
+      p("The projections shown on this page are made using the", a(href="https://syncrosim.com/", "SyncroSim", target="_blank"), "model framework."),
+      
+      fluidRow(column(12, align="center", offset = 0,
+                      actionButton(inputId='modelDetails',
+                                   label="Model Details",
+                                   icon = icon("info-circle"),
+                                   onclick ="window.open('http://www.apexrms.com/covid19/', '_blank')"),
+                      tags$style(type='text/css', "#button {vertical-align- middle; height- 50px; width- 100%; font-size- 30px; justify-content: center;}"),
+                      br(),
+                      br())),
+      
+      p(strong("Note that the simulation results presented here are simply a demonstration of the model framework, and should not be considered actual predictions for any of these jurisdictions."))),
     
-    mainPanel(fluidRow(column(12, align="center",
+    mainPanel(
+      
+      titlePanel(h2("COVID-19 Forecasts using SyncroSim", align="center")),
+      
+      fluidRow(column(12, align="center",
                               
-        plotOutput("chart", width="100%", height="450px"),
+        plotOutput("chart", width="100%", height="430px"),
         
         sliderInput("range", width="100%", label = "Date Range",
           min = minDate, max = maxDate, value = c(minDate, maxDate), 
