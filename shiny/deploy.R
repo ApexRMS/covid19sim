@@ -12,3 +12,15 @@ if(!length(outputFiles) == 4){stop(paste("There are", length(outputFiles), "outp
 
 # Copy files to "shiny/covid19canada/data" folder
 file.copy(paste0("data/", outputFiles), "shiny/covid19canada/data", overwrite=T)
+
+# deploy the app
+library(rsconnect)
+options(rsconnect.http = "curl")
+userName = readline(prompt="Enter rsconnect user name: ")
+userToken = readline(prompt="Enter rsconnect token: ")
+userSecret = readline(prompt="Enter rsconnect secret: ")
+
+rsconnect::setAccountInfo(name=userName, token=userToken, secret=userSecret)
+
+shinyAppDir = "C:/gitprojects/covid19sim/shiny/covid19canada"
+rsconnect::deployApp(shinyAppDir)
