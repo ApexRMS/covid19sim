@@ -13,10 +13,8 @@ pcDenominatorDeaths = 1000000    # Denominator in the per capita calculations fo
 pcDenominatorCases = 100000    # Denominator in the per capita calculations for cases
 pcDenominatorTests= 1000 # Denominator in the per capita calculations for tests
 
-# Jurisdictions to be included in plots
-jurisdictionsFocalWorld = c("Italy", "Spain", "France", "South Korea", "Canada")
-jurisdictionsFocalWorldUS = c("Italy", "Spain", "France", "South Korea", "United States", "Canada")
-jurisdictionsFocalCanada = c("Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
+# Jurisdictions to include in the model
+jurisdictionsModel = c("Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
 
 # Jurisdictions to be used for reference in the growth rate scenarios
 jurisdictionsGrowthReference = c("Italy", "Spain", "France", "South Korea", "United States")   # Complete list (for analysis)
@@ -32,9 +30,10 @@ jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReference1
 jurisdictionsRegression = c("Italy", "Spain", "France", "South Korea",
                             "Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
 
-# Jurisdictions to include in the model
-#jurisdictionsModel = c("Canada")
-jurisdictionsModel = jurisdictionsFocalCanada
+# Jurisdictions to be included in plots
+jurisdictionsFocalWorld = c("Italy", "Spain", "France", "South Korea", "Canada")
+jurisdictionsFocalWorldUS = c("Italy", "Spain", "France", "South Korea", "United States", "Canada")
+jurisdictionsFocalCanada = c("Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
 
 # Start dates of the post-intervention period by jurisdiction fro regressions
 interventionDate = tribble(~jurisdiction, ~date,
