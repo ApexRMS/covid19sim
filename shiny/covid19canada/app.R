@@ -11,13 +11,14 @@ library(ggplot2)
 library(lubridate)
 library(RColorBrewer)
 library(shinyWidgets)
+library(cowplot)
 
 # Working directory
 setwd("shiny/covid19canada")
 
 # Input parameters
 brewer.pal(n = 8, name = "Dark2")
-jurisdictionLineColor <- c("Canada"="red3","Canada - Alberta"="#666666", "Canada - British Columbia"="#A6761D", "Canada - Ontario"="#1B9E77", "Canada - Quebec"="#D95F02")
+jurisdictionLineColor <- c("Canada"="red3","Canada - Alberta"="#666666", "Canada - British Columbia"="#A6761D", "Canada - Ontario"="#1B9E77", "Canada - Quebec"="#D95F02", "Observed" = "white", "Modeled" = "black")
 
 # Output files
 outputFiles <- list.files("data")
@@ -61,8 +62,7 @@ whiteTheme <- theme(panel.background = element_rect(fill = NA),
                     axis.text = element_text(size=14),
                     legend.key = element_rect(fill = NA),
                     legend.text = element_text(size=14),
-                    legend.title = element_blank(),
-                    plot.margin=unit(c(20,0,0,0),"pt"))
+                    legend.title = element_blank())
 
 #### UI ####
 ui <- fluidPage(
@@ -105,29 +105,53 @@ server <- function(input, output) {
   
   output$chart <- renderPlot({
     
+    # Subset data based on user inputs
     dataSubset <- data %>%
       filter(Jurisdiction %in% input$juris) %>% # Only keep jurisdictions of interest
       filter(!((DataType == "Observed") & (!date_model_run == max(date_model_run)))) %>% # Remove observations for all but the most recent model
       filter(!((DataType == "Modeled") & (!date_model_run == input$forecastDate))) %>% # Remove predictions for all but the model run of interest
       filter(Date >= input$range[1] & Date <= input$range[2]) # Only keep dates of interest
     
-    p <- ggplot(dataSubset, aes(x=Date, y=Mean, color=Jurisdiction)) + 
+    # Produce main plot (without legend)
+    plot <- ggplot(dataSubset, aes(x=Date, y=Mean, color=Jurisdiction)) + 
       geom_ribbon(data=dataSubset[which(dataSubset$DataType=="Modeled"),], aes(ymin=Lower, ymax=Upper, fill=Jurisdiction), alpha=0.3, color=NA, show.legend=F) +
       geom_line(aes(linetype=DataType), size=1) +
       scale_linetype_manual(values=c("Observed"="solid", "Modeled"="dotted"), labels=c("Observed", 'Modeled (95% Confidence Interval)')) +
       scale_color_manual(values=jurisdictionLineColor) +
       scale_fill_manual(values=jurisdictionLineColor) +
-      guides(color=guide_legend(title="Jurisdiction", order=1), linetype=guide_legend(title="Data Type", order=2)) +
+      guides(color=F, linetype=F) +
       scale_y_continuous(name="Number of people", labels=scales::label_comma(), trans=ifelse(input$logY, "log10", "identity")) +
       whiteTheme +
       facet_wrap(vars(Metric), scales="free_y") +
       theme(axis.title.x = element_blank(),
-            legend.box="vertical",
-            legend.position = "top", 
+            plot.margin=unit(c(10,0,0,0),"pt"))
+    
+    # Produce legend for Jurisdictions
+    jurisdictionLegend <- ggplot(dataSubset, aes(x=Date, y=Mean, color=Jurisdiction)) + 
+      geom_line(size=1) +
+      scale_color_manual(values=jurisdictionLineColor) +
+      whiteTheme +
+      theme(legend.position = "top", 
             legend.justification = "left",
-            legend.box.just = "left",
             legend.margin=margin())
     
+    jurisdictionLegend <- get_legend(jurisdictionLegend)
+    
+    # Produce legend for data types
+    typeLegend <- ggplot(dataSubset, aes(x=Date, y=Mean)) + 
+      geom_ribbon(aes(ymin=Lower, ymax=Upper, fill=DataType), alpha=0.3, color=NA) +
+      geom_line(aes(linetype=DataType), size=1) +
+      scale_linetype_manual(values=c("Observed"="solid", "Modeled"="dotted"), labels=c("Observed"="Observed", "Modeled"='Modeled (95% Confidence Interval)')) +
+      scale_fill_manual(values=jurisdictionLineColor, labels=c("Observed"="Observed", "Modeled"='Modeled (95% Confidence Interval)')) +
+      whiteTheme +
+      theme(legend.position = "top", 
+            legend.justification = "left",
+            legend.margin=margin())
+    
+    typeLegend <- get_legend(typeLegend)
+    
+    # Combine plot and legends
+    p <- plot_grid(jurisdictionLegend, typeLegend, plot, ncol=1, rel_heights = c(1,1,15))
     return(p)
   })
 
@@ -135,30 +159,3 @@ server <- function(input, output) {
 
 #### Run Shiny app ####
 shinyApp(ui, server)
-
-
-
-
-
-
-juris <- jurisdictions[1:3]
-forecastDate <- forecastDates[6]
-logY <- F
-
-dataSubset <- data %>%
-  filter(Jurisdiction %in% juris) %>% # Only keep jurisdictions of interest
-  filter(!((DataType == "Observed") & (!date_model_run == max(date_model_run)))) %>% # Remove observations for all but the most recent model
-  filter(!((DataType == "Modeled") & (!date_model_run == forecastDate))) %>% # Remove predictions for all but the model run of interest
-  filter(Date >= minDate & Date <= maxDate) # Only keep dates of interest
-
-ggplot(dataSubset, aes(x=Date, y=Mean, color=Jurisdiction)) + 
-  geom_ribbon(data=dataSubset[which(dataSubset$DataType=="Modeled"),], aes(ymin=Lower, ymax=Upper, fill=Jurisdiction), alpha=0.3, color=NA, show.legend=F) +
-  geom_line(aes(linetype=DataType), size=1) +
-  scale_linetype_manual(values=c("Observed"="solid", "Modeled"="dotted"), labels=c("Observed", 'Modeled (95% Confidence Interval)')) +
-  scale_color_manual(values=jurisdictionLineColor) +
-  scale_fill_manual(values=jurisdictionLineColor) +
-  whiteTheme +
-  guides(color=guide_legend(title="Jurisdiction", order=1), linetype=guide_legend(title="Data Type", order=2)) +
-  scale_y_continuous(name="Number of people", labels=scales::label_comma(), trans=ifelse(logY, "log10", "identity")) +
-  theme(axis.title.x = element_blank(), legend.position = "top", legend.box="vertical") +
-  facet_wrap(vars(Metric), scales="free_y")
