@@ -38,10 +38,23 @@ cumulativeInfected <- read.csv(paste0("data/", outputFiles[which(grepl("infected
   mutate(Metric = "Cumulative Infections")
 
 # Format data
+      # General
 data <- bind_rows(dailyDeaths, dailyInfected, cumulativeDeaths, cumulativeInfected) %>%
-  mutate(DataType = ifelse(is.na(Lower), "Observed", "Modeled")) %>%
+  mutate(DataType = ifelse((Metric %in% c("Daily Deaths", "Cumulative Deaths")) & (Date < date_model_run), "Observed", "Modeled")) %>%
   mutate(DataType = ordered(DataType, level=c("Observed", "Modeled"))) %>%
   mutate(Metric = ordered(Metric, levels=c("Daily Infections", "Daily Deaths", "Cumulative Infections", "Cumulative Deaths")))
+
+      # Duplicate last observed date to make it also the first modeled date
+firstModeled <- data %>%
+  filter(DataType == "Observed") %>% # Keep only observations
+  filter(Date == date_model_run - 1) %>% # Keep only data for the day before a model run
+  mutate(DataType = "Modeled") %>% # Assign it as modeled data
+  mutate(DataType = ordered(DataType, level=c("Observed", "Modeled"))) %>%
+  mutate(Lower = Mean, Upper = Mean) # Assign lower and upper bounds = mean
+
+      # Add to master dataset
+data %<>% bind_rows(., firstModeled) %>%
+  arrange(Metric, date_model_run, Jurisdiction, Date)
 
 #### Helpers ####
 forecastDates <- sort(unique(data$date_model_run))
