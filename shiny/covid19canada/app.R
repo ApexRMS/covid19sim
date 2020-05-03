@@ -75,7 +75,7 @@ whiteTheme <- theme(panel.background = element_rect(fill = NA),
                     legend.title = element_blank())
 
 #### UI ####
-ui <- fluidPage(
+ui <- fluidPage( title = "COVID-19 SyncroSim",
   
   br(),
   
