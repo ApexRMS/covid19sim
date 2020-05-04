@@ -82,11 +82,12 @@ whiteTheme <- theme(#panel.background = element_rect(fill = NA),
                     legend.title = element_blank())
 
 #### UI ####
-ui <- fluidPage(
+
+ui <- fluidPage(title = "COVID-19 SyncroSim",
   theme = shinythemes::shinytheme("darkly"),
   titlePanel(column(width = 12, 
                     a(img(src = "cropped-SyncroSim-Logo.png"), href="https://syncrosim.com"))),
-  
+
   br(),
   
   sidebarLayout(
