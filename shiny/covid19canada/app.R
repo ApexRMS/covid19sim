@@ -12,6 +12,13 @@ library(lubridate)
 library(RColorBrewer)
 library(shinyWidgets)
 library(cowplot)
+library(thematic)
+library(shinythemes)
+library(shinyBS)
+
+# Turn on automatic theming
+thematic_on()
+onStop(thematic_off)
 
 # Input parameters
 brewer.pal(n = 8, name = "Dark2")
@@ -61,11 +68,11 @@ forecastDates <- sort(unique(data$date_model_run))
 minDate <- min(data$Date)
 maxDate <- max(data$Date)
 jurisdictions <- sort(unique(data$Jurisdiction))
-whiteTheme <- theme(panel.background = element_rect(fill = NA),
-                    panel.border = element_rect(fill = NA, color = "grey75"),
-                    axis.ticks = element_line(color = "grey55"),
-                    panel.grid.major = element_line(color = "grey95", size = 0.2),
-                    panel.grid.minor = element_line(color = "grey95", size = 0.2),
+whiteTheme <- theme(#panel.background = element_rect(fill = NA),
+                    #panel.border = element_rect(fill = NA, color = "grey75"),
+                    #axis.ticks = element_line(color = "grey55"),
+                    #panel.grid.major = element_line(color = "grey95", size = 0.2),
+                    #panel.grid.minor = element_line(color = "grey95", size = 0.2),
                     plot.title = element_text(hjust=0.5, size=18),
                     axis.title = element_text(size=18),
                     strip.text = element_text(size=18),
@@ -75,28 +82,43 @@ whiteTheme <- theme(panel.background = element_rect(fill = NA),
                     legend.title = element_blank())
 
 #### UI ####
-ui <- fluidPage(
-  
+
+ui <- fluidPage(title = "COVID-19 SyncroSim",
+  theme = shinythemes::shinytheme("darkly"),
+  titlePanel(column(width = 12, 
+                    a(img(src = "cropped-SyncroSim-Logo.png"), href="https://syncrosim.com"))),
+
   br(),
   
   sidebarLayout(
     
-    sidebarPanel(width=3, 
+    sidebarPanel(width=3, h3("Forecast Explorer"),
+                 hr(),
       selectInput("forecastDate", 
-        label = "Forecast Date",
+        label = "Model Run Date",
          choices = forecastDates,
           selected = max(forecastDates)),
+      bsTooltip("forecastDate", "Choose date of model run and show forecasts", placement="right"),
       
       checkboxGroupInput("juris", 
-                         label = "Jurisdictions",
+                         label = "Select Jurisdictions",
                          choices = jurisdictions,
                          selected = jurisdictions[1]),
+      bsTooltip("juris", "Select one or more jurisdictions to plot", placement="right"),
       
       materialSwitch("logY",
-                     label = strong("Log Y axis"), 
+                     label = "Log Y axis", 
                      value = F,
                      status = "primary",
                      width="100%"),
+      bsTooltip("logY", "Plot data on a log scale", placement="right"),
+      
+      sliderInput("range", width="100%", label = "Filter Date Range",
+                 min = minDate, max = maxDate, value = c(minDate, maxDate), 
+                 step = 1),
+      bsTooltip("range", "Select a range of dates to plot forecasts", placement="right"),
+      
+      hr(),
       
       p("The projections shown on this page are made using the", a(href="https://syncrosim.com/", "SyncroSim", target="_blank"), "model framework."),
       
@@ -113,15 +135,18 @@ ui <- fluidPage(
     
     mainPanel(
       
-      titlePanel(h2("COVID-19 Forecasts using SyncroSim", align="center")),
+      titlePanel(h2("COVID-19 Forecasts Using SyncroSim", align="center")),
       
-      fluidRow(column(12, align="center",
-                              
-        plotOutput("chart", width="100%", height="430px"),
+      tabsetPanel(
+                  tabPanel("Infections",
+                           fluidRow(column(12, align="center",
+                                           plotOutput("chart", width="100%", height="600px")))),
+                  
+                  tabPanel("Deaths",
+                           fluidRow(column(12, align="center",
+                                           plotOutput("chart2", width="100%", height="600px")))))
         
-        sliderInput("range", width="100%", label = "Date Range",
-          min = minDate, max = maxDate, value = c(minDate, maxDate), 
-          step = 1))))
+        )
   )
 )
 
@@ -131,7 +156,7 @@ server <- function(input, output) {
   output$chart <- renderPlot({
     
     # Subset data based on user inputs
-    dataSubset <- data %>%
+    dataSubset <- data %>% filter(Metric %in% c("Daily Infections", "Cumulative Infections")) %>%
       filter(Jurisdiction %in% input$juris) %>% # Only keep jurisdictions of interest
       filter(!((DataType == "Observed") & (!date_model_run == max(date_model_run)))) %>% # Remove observations for all but the most recent model
       filter(!((DataType == "Modeled") & (!date_model_run == input$forecastDate))) %>% # Remove predictions for all but the model run of interest
@@ -142,23 +167,24 @@ server <- function(input, output) {
       geom_ribbon(data=dataSubset[which(dataSubset$DataType=="Modeled"),], aes(ymin=Lower, ymax=Upper, fill=Jurisdiction), alpha=0.3, color=NA, show.legend=F) +
       geom_line(aes(linetype=DataType), size=1) +
       scale_linetype_manual(values=c("Observed"="solid", "Modeled"="dotted"), labels=c("Observed", 'Modeled (95% Confidence Interval)')) +
-      scale_color_manual(values=jurisdictionLineColor) +
-      scale_fill_manual(values=jurisdictionLineColor) +
+      #scale_color_manual(values=jurisdictionLineColor) +
+      #scale_fill_manual(values=jurisdictionLineColor) +
       guides(color=F, linetype=F) +
       scale_y_continuous(name="Number of people", labels=scales::label_comma(), trans=ifelse(input$logY, "log10", "identity")) +
       whiteTheme +
-      facet_wrap(vars(Metric), scales="free_y") +
+      facet_wrap(vars(Metric), scales="free_y", ncol=2) +
       theme(axis.title.x = element_blank(),
-            plot.margin=unit(c(10,0,0,0),"pt"))
+            plot.margin=unit(c(5,5,0,5),"pt"),
+            strip.text = element_text(size=16))
     
     # Produce legend for Jurisdictions
     jurisdictionLegend <- ggplot(dataSubset, aes(x=Date, y=Mean, color=Jurisdiction)) + 
       geom_line(size=1) +
-      scale_color_manual(values=jurisdictionLineColor) +
+      #scale_color_manual(values=jurisdictionLineColor) +
       whiteTheme +
       theme(legend.position = "top", 
-            legend.justification = "left",
-            legend.margin=margin())
+            legend.justification = "center",
+            legend.margin=margin(0,0,0,0))
     
     jurisdictionLegend <- get_legend(jurisdictionLegend)
     
@@ -167,11 +193,13 @@ server <- function(input, output) {
       geom_ribbon(aes(ymin=Lower, ymax=Upper, fill=DataType), alpha=0.3, color=NA) +
       geom_line(aes(linetype=DataType), size=1) +
       scale_linetype_manual(values=c("Observed"="solid", "Modeled"="dotted"), labels=c("Observed"="Observed", "Modeled"='Modeled (95% Confidence Interval)')) +
-      scale_fill_manual(values=jurisdictionLineColor, labels=c("Observed"="Observed", "Modeled"='Modeled (95% Confidence Interval)')) +
+      #scale_fill_manual(values=jurisdictionLineColor, labels=c("Observed"="Observed", "Modeled"='Modeled (95% Confidence Interval)')) +
+      guides(fill=F) +
       whiteTheme +
       theme(legend.position = "top", 
-            legend.justification = "left",
-            legend.margin=margin())
+            legend.justification = "center",
+            legend.margin=margin(0,0,0,0),
+            legend.key = element_rect(fill="white"))
     
     typeLegend <- get_legend(typeLegend)
     
@@ -179,6 +207,66 @@ server <- function(input, output) {
     p <- plot_grid(jurisdictionLegend, typeLegend, plot, ncol=1, rel_heights = c(1,1,15))
     return(p)
   })
+  
+
+  
+  
+  
+  output$chart2 <- renderPlot({
+    
+    # Subset data based on user inputs
+    dataSubset <- data %>% filter(Metric %in% c("Daily Deaths", "Cumulative Deaths")) %>%
+      filter(Jurisdiction %in% input$juris) %>% # Only keep jurisdictions of interest
+      filter(!((DataType == "Observed") & (!date_model_run == max(date_model_run)))) %>% # Remove observations for all but the most recent model
+      filter(!((DataType == "Modeled") & (!date_model_run == input$forecastDate))) %>% # Remove predictions for all but the model run of interest
+      filter(Date >= input$range[1] & Date <= input$range[2]) # Only keep dates of interest
+    
+    # Produce main plot (without legend)
+    plot <- ggplot(dataSubset, aes(x=Date, y=Mean, color=Jurisdiction)) + 
+      geom_ribbon(data=dataSubset[which(dataSubset$DataType=="Modeled"),], aes(ymin=Lower, ymax=Upper, fill=Jurisdiction), alpha=0.3, color=NA, show.legend=F) +
+      geom_line(aes(linetype=DataType), size=1) +
+      scale_linetype_manual(values=c("Observed"="solid", "Modeled"="dotted"), labels=c("Observed", 'Modeled (95% Confidence Interval)')) +
+      #scale_color_manual(values=jurisdictionLineColor) +
+      #scale_fill_manual(values=jurisdictionLineColor) +
+      guides(color=F, linetype=F) +
+      scale_y_continuous(name="Number of people", labels=scales::label_comma(), trans=ifelse(input$logY, "log10", "identity")) +
+      whiteTheme +
+      facet_wrap(vars(Metric), scales="free_y", ncol=2) +
+      theme(axis.title.x = element_blank(),
+            plot.margin=unit(c(5,20,0,5),"pt"),
+            strip.text = element_text(size=16))
+    
+    # Produce legend for Jurisdictions
+    jurisdictionLegend <- ggplot(dataSubset, aes(x=Date, y=Mean, color=Jurisdiction)) + 
+      geom_line(size=1) +
+      #scale_color_manual(values=jurisdictionLineColor) +
+      whiteTheme +
+      theme(legend.position = "top", 
+            legend.justification = "center",
+            legend.margin=margin(0,0,0,0))
+    
+    jurisdictionLegend <- get_legend(jurisdictionLegend)
+    
+    # Produce legend for data types
+    typeLegend <- ggplot(dataSubset, aes(x=Date, y=Mean)) + 
+      geom_ribbon(aes(ymin=Lower, ymax=Upper, fill=DataType), alpha=0.3, color=NA) +
+      geom_line(aes(linetype=DataType), size=1) +
+      scale_linetype_manual(values=c("Observed"="solid", "Modeled"="dotted"), labels=c("Observed"="Observed", "Modeled"='Modeled (95% Confidence Interval)')) +
+      #scale_fill_manual(values=jurisdictionLineColor, labels=c("Observed"="Observed", "Modeled"='Modeled (95% Confidence Interval)')) +
+      guides(fill=F) +
+      whiteTheme +
+      theme(legend.position = "top", 
+            legend.justification = "center",
+            legend.margin=margin(0,0,0,0),
+            legend.key = element_rect(fill="white"))
+    
+    typeLegend <- get_legend(typeLegend)
+    
+    # Combine plot and legends
+    p <- plot_grid(jurisdictionLegend, typeLegend, plot, ncol=1, rel_heights = c(1,1,15))
+    return(p)
+  })
+  
 
 }
 
