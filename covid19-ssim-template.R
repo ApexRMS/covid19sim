@@ -13,8 +13,8 @@ library(rstudioapi)
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
-# runDate = "2020-04-29"
-runDate = today()
+# runDate = "2020-04-25"
+# runDate = today()
 # ***************************************************************
 
 # Setup -------------------------
@@ -46,13 +46,13 @@ numRealizations = 1000
 
 # Fatality scenarios to be included in the template library
 # fatalityScenarios = c(2)
-fatalityScenarios = c(1,2)
+fatalityScenarios = c(1)
 fatalityScenarioNames = c(" (base fatality)", " (high fatality)")
 highFatalityMultiplier = 1.5
 
 # Control scenarios to be included in the template library
 #controlScenarios = c(2)
-controlScenarios = c(1,2)
+controlScenarios = c(1)
 controlScenarioNames = c("Current measures: ", "No control: ")
 
 # Load Data -------------------------

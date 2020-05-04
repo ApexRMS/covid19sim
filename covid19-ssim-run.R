@@ -18,7 +18,7 @@ library(rstudioapi)
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
 # runDate = "2020-04-29"
-runDate = today()
+# runDate = today()
 # ***************************************************************
 
 # Set the working directory to the script's folder (works only in RStudio)

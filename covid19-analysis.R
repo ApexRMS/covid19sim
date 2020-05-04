@@ -18,6 +18,12 @@ library(lubridate)
 library(zoo)
 library(rstudioapi)
 
+# ******************* SET THIS DATE BEFORE RUNNING **************
+# This should be the day after the last death data
+# runDate = "2020-04-25"
+# runDate = today()
+# ***************************************************************
+
 # Set the working directory to the script's folder (works only in RStudio)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -304,9 +310,8 @@ deathsUS = left_join(deathsUS, deathsUSLagged) %>%
 # Join world, US and Canada
 deaths = bind_rows(deathsCanada, deathsUS, deathsWorld)
 
-# Optionally remove some more recent deaths for retrospective analysis
-# lastDate = ymd("2020-04-18")
-# deaths = deaths %>% filter(date <= lastDate)
+# Remove deaths not occuring prior to runDate
+deaths = deaths %>% filter(date < runDate)
 
 # Add population data
 deaths = left_join(deaths, population) %>%

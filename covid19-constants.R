@@ -5,6 +5,13 @@
 
 library(lubridate)
 
+# ******************* SET THIS DATE BEFORE RUNNING **************
+# This should be the day after the last death data
+# runDate = "2020-04-18"
+runDate = today()
+# ***************************************************************
+
+
 deathsCumulativeRegMin = 5  # Minimum cumulative number of deaths for death growth rate regression
 casesCumulativeRegMin = 15  # Minimum cumulative number of cases for cases growth rate regression
 infectionPeriod = 23        # Delay between infection and death (for analysis)
