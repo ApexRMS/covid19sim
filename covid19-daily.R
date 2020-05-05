@@ -11,6 +11,7 @@
 #   Updated CSV files of deaths and forecasts in git repo
 
 # Setup -------------------------
+library(rstudioapi)
 
 # Set the working directory to the script's folder (works only in RStudio)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))

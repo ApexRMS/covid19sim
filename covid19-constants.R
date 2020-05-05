@@ -3,6 +3,7 @@
 #
 # Developed by ApexRMS
 
+library(tidyverse)
 library(lubridate)
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
