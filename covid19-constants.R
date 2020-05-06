@@ -34,16 +34,16 @@ jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReference1
                                     "Canada - British Columbia" = jurisdictionsGrowthReference2,
                                     "Canada - Ontario" = jurisdictionsGrowthReference1,
                                     "Canada - Quebec" = jurisdictionsGrowthReference1)
-# Jurisdictions to be included in growth regressions
-jurisdictionsRegression = c("Italy", "Spain", "France", "South Korea",
-                            "Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
-
 # Jurisdictions to be included in plots
 jurisdictionsFocalWorld = c("Italy", "Spain", "France", "South Korea", "Canada")
 jurisdictionsFocalWorldUS = c("Italy", "Spain", "France", "South Korea", "United States", "Canada")
 jurisdictionsFocalCanada = c("Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
 
-# Start dates of the post-intervention period by jurisdiction fro regressions
+# Jurisdictions to be included in growth regressions
+jurisdictionsRegression = c("Italy", "Spain", "France", "South Korea",
+                            "Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
+
+# Start dates of the post-intervention period by jurisdiction for growth regressions
 interventionDate = tribble(~jurisdiction, ~date,
                           "Canada",                     ymd("2020-03-14"),
                           "Canada - Alberta",           ymd("2020-03-14"),
