@@ -121,17 +121,17 @@ saveDatasheet(myProject, myCharts, "corestime_Charts")
 #TODO: make the Chart read-only
 
 # Create a folder in the library for the Extra scenarios (using command function to call SyncroSim console)
-args = list(create=NULL, folder=NULL, lib=filepath(myLibrary), name="Other Scenarios", tpid=projectId(myProject))
-return = command(args, session=mySession)
-otherFolderId = as.numeric(strsplit(return, ": ")[[1]][2])
-
-# Create a folder in the library for each jurisdiction (using SyncroSim command function)
-for (jurName in jurisdictions$jurisdiction){
-  args = list(create=NULL, folder=NULL, lib=filepath(myLibrary), name=jurName, tfid=otherFolderId)
-  return = command(args, session=mySession)
-  folderId = as.numeric(strsplit(return, ": ")[[1]][2])
-  jurisdictions$folderId[jurisdictions$name==jurName]=folderId
-}
+# args = list(create=NULL, folder=NULL, lib=filepath(myLibrary), name="Other Scenarios", tpid=projectId(myProject))
+# return = command(args, session=mySession)
+# otherFolderId = as.numeric(strsplit(return, ": ")[[1]][2])
+# 
+# # Create a folder in the library for each jurisdiction (using SyncroSim command function)
+# for (jurName in jurisdictions$jurisdiction){
+#   args = list(create=NULL, folder=NULL, lib=filepath(myLibrary), name=jurName, tfid=otherFolderId)
+#   return = command(args, session=mySession)
+#   folderId = as.numeric(strsplit(return, ": ")[[1]][2])
+#   jurisdictions$folderId[jurisdictions$name==jurName]=folderId
+# }
 
 
 # Scenario Datafeeds ------------------------------

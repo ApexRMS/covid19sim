@@ -24,7 +24,7 @@ source("covid19-constants.R")
 source("covid19-analysis.R")
 
 
-# Plot growth rates ------------------------
+# Plot growth rates (Canada, 4 provinces, 5 countries) ------------------------
 
 deaths <- read_csv(paste0(outputFolder, "/", "deaths-output.csv"))
 whiteTheme <- theme(
@@ -68,6 +68,29 @@ p <- plotData %>%
   whiteTheme
 p
 ggsave(paste0(plotFolder, "/deaths_growth_ma7_world.png"), p, width=10, height=5, dpi=300)
+
+# Plot growth rates (Other Provinces) ------------------------
+
+
+plotData = mutate(deaths, deaths_growth_ma7 = deaths_growth_ma7 * 100) %>%
+  filter(jurisdiction %in% c(jurisdictionsFocalWorldUS, 
+                             "Canada - Nova Scotia",
+                             "Canada - Manitoba"),
+         day_model>=9)
+
+p <- plotData %>%
+  ggplot(aes(x=day_model, y=deaths_growth_ma7, group=jurisdiction)) +
+  geom_line(aes(color=jurisdiction)) +
+  #  geom_point(aes(color=jurisdiction), size=1.5) +
+  # scale_color_manual(values=jurisdictionLineColor, labels = jurisdictionLabels) +
+  # scale_linetype_manual(values=jurisdictionLineType, labels = jurisdictionLabels) +
+  # scale_size_manual(values = jurisdictionLineSize, labels = jurisdictionLabels) +
+  scale_x_continuous("Days since 5 total deaths") +
+  scale_y_continuous("% daily growth (7-day moving avg.)") + 
+  whiteTheme
+p
+ggsave(paste0(plotFolder, "/deaths_growth_ma7_other.png"), p, width=10, height=5, dpi=300)
+
 
 
 # Create SyncroSim template -----------------------------

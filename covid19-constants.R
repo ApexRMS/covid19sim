@@ -22,18 +22,28 @@ pcDenominatorCases = 100000    # Denominator in the per capita calculations for 
 pcDenominatorTests= 1000 # Denominator in the per capita calculations for tests
 
 # Jurisdictions to include in the model
-jurisdictionsModel = c("Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
+jurisdictionsModel = c("Canada", 
+                       "Canada - Alberta",
+                       "Canada - British Columbia",
+                       "Canada - Manitoba",
+                       "Canada - Nova Scotia",
+                       "Canada - Ontario",
+                       "Canada - Quebec")
 
 # Jurisdictions to be used for reference in the growth rate scenarios
 jurisdictionsGrowthReference = c("Italy", "Spain", "France", "South Korea", "United States")   # Complete list (for analysis)
 jurisdictionsGrowthReference1 = c("Italy", "Spain", "France", "South Korea", "United States")  # Partial list (for library sampling)
 jurisdictionsGrowthReference2 = c("Italy", "Spain", "France", "South Korea")                   # Another partial list
+# jurisdictionsGrowthReference3 = c("Italy", "Spain", "France", "United States")                 # Another partial list
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReference1,
-                                    "Canada - Alberta" = jurisdictionsGrowthReference2,
+                                    "Canada - Alberta" = jurisdictionsGrowthReference1,
                                     "Canada - British Columbia" = jurisdictionsGrowthReference2,
+                                    "Canada - Manitoba" = jurisdictionsGrowthReference2,
+                                    "Canada - Nova Scotia" = jurisdictionsGrowthReference1,
                                     "Canada - Ontario" = jurisdictionsGrowthReference1,
                                     "Canada - Quebec" = jurisdictionsGrowthReference1)
+
 # Jurisdictions to be included in plots
 jurisdictionsFocalWorld = c("Italy", "Spain", "France", "South Korea", "Canada")
 jurisdictionsFocalWorldUS = c("Italy", "Spain", "France", "South Korea", "United States", "Canada")
