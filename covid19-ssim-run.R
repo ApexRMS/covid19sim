@@ -79,7 +79,7 @@ if (exists("infected_daily_all")) { remove(infected_daily_all)}
 
 # Repeat for all jurisdictions
 for (name in scenarioNames) {
-  # name = scenarioNames[1]
+  # name = scenarioNames[4]
   
   # Run the scenario
   myScenario = scenario(myLibrary, name)
@@ -99,9 +99,9 @@ for (name in scenarioNames) {
   deaths_daily = outputDeathRaw %>%
   mutate(Date = str_sub(Date,1,10)) %>%
   group_by(Jurisdiction, Date) %>%
-  summarize(mean = round(mean(Value),0),
-            lower = round(quantile(Value, 0.025),0),
-            upper = round(quantile(Value, 0.975),0)) %>%
+  summarize(mean = round(mean(Value),4),
+            lower = round(quantile(Value, 0.025),4),
+            upper = round(quantile(Value, 0.975),4)) %>%
   mutate(lower = ifelse(mean==lower,"",as.character(lower))) %>%
   mutate(upper = ifelse(mean==upper,"",as.character(upper))) %>%
   rename(Mean=mean, Upper=upper, Lower=lower) %>%
