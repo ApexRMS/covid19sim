@@ -110,9 +110,9 @@ for (name in scenarioNames) {
   deaths_cumulative = outputDeathRaw %>%
     mutate(Date = str_sub(Date,1,10)) %>%
     group_by(Jurisdiction, Date) %>%
-    summarize(mean = round(mean(CumulativeValue),0),
-              lower = round(quantile(CumulativeValue, 0.025),0),
-              upper = round(quantile(CumulativeValue, 0.975),0)) %>%
+    summarize(mean = round(mean(CumulativeValue),4),
+              lower = round(quantile(CumulativeValue, 0.025),4),
+              upper = round(quantile(CumulativeValue, 0.975),4)) %>%
     mutate(lower = ifelse(mean==lower,"",as.character(lower))) %>%
     mutate(upper = ifelse(mean==upper,"",as.character(upper))) %>%
     rename(Mean=mean, Upper=upper, Lower=lower) %>%
