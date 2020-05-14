@@ -6,6 +6,7 @@
 # Input: CSV output from the script covid19-analysis.R plus other input CSV files
 # Output: covid19-canada-yyyy-mm-dd.ssim - SyncroSim library with corresponding model inputs
 #
+# devtools::install("C:/gitprojects/rsyncrosim")
 library(rsyncrosim)
 library(tidyverse)
 library(lubridate)
