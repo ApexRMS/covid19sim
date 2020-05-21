@@ -8,21 +8,21 @@ lm(formula = deaths_cumulative_log ~ day_model, data = deathsReg)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.39016 -0.17446  0.04313  0.17322  0.26653 
+-0.39245 -0.17708  0.04065  0.18037  0.26403 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 1.132397   0.064069   17.68   <2e-16 ***
-day_model   0.094911   0.003148   30.15   <2e-16 ***
+(Intercept) 1.135081   0.065003   17.46   <2e-16 ***
+day_model   0.094900   0.003194   29.71   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.1962 on 34 degrees of freedom
-Multiple R-squared:  0.9639,	Adjusted R-squared:  0.9629 
-F-statistic: 908.9 on 1 and 34 DF,  p-value: < 2.2e-16
+Residual standard error: 0.1991 on 34 degrees of freedom
+Multiple R-squared:  0.9629,	Adjusted R-squared:  0.9618 
+F-statistic: 882.7 on 1 and 34 DF,  p-value: < 2.2e-16
 
-[1] "deathsGrowthInitTotal: 13.5642810879145"
-[1] "deathsGrowthRateTotal: 1.2442598573174"
+[1] "deathsGrowthInitTotal: 13.6483801741005"
+[1] "deathsGrowthRateTotal: 1.24422689784949"
 [1] "******************************************************"
 [1] "Spain"
 [1] "Period: pre"
@@ -189,10 +189,8 @@ Call:
 lm(formula = deaths_cumulative_log ~ day_model, data = deathsReg)
 
 Residuals:
-        1         2         3         4         5         6 
- 0.014780 -0.015617 -0.010015 -0.019014  0.040767  0.004975 
-        7 
--0.015876 
+        1         2         3         4         5         6         7 
+ 0.014780 -0.015617 -0.010015 -0.019014  0.040767  0.004975 -0.015876 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
