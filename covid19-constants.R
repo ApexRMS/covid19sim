@@ -8,8 +8,8 @@ library(lubridate)
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
-runDate = "2020-05-24"
-# runDate = today()
+# runDate = "2020-05-24"
+runDate = today()
 # ***************************************************************
 
 
