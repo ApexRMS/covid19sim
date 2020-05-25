@@ -8,8 +8,8 @@ library(lubridate)
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
-# runDate = "2020-04-18"
-runDate = today()
+runDate = "2020-05-24"
+# runDate = today()
 # ***************************************************************
 
 
@@ -38,9 +38,9 @@ jurisdictionsGrowthReference2 = c("Italy", "Spain", "France", "South Korea")    
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReference1,
                                     "Canada - Alberta" = jurisdictionsGrowthReference1,
-                                    "Canada - British Columbia" = jurisdictionsGrowthReference2,
+                                    "Canada - British Columbia" = jurisdictionsGrowthReference1,
                                     "Canada - Manitoba" = jurisdictionsGrowthReference2,
-                                    "Canada - Nova Scotia" = jurisdictionsGrowthReference1,
+                                    "Canada - Nova Scotia" = jurisdictionsGrowthReference2,
                                     "Canada - Ontario" = jurisdictionsGrowthReference1,
                                     "Canada - Quebec" = jurisdictionsGrowthReference1)
 

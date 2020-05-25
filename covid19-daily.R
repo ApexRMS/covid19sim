@@ -53,8 +53,10 @@ jurisdictionLabels <- c("Canada"="Canada", "United States"="United States", "Fra
 # Define labels for canadian focal jurisdictions
 jurisdictionFocalCanadaLabels <- c("Canada"="Canada", "Canada - Alberta"="Alberta", "Canada - British Columbia"="British Columbia", "Canada - Ontario"="Ontario", "Canada - Quebec"="Quebec")
 
+minDayModel = 9
+minDayModel = 40
 plotData = mutate(deaths, deaths_growth_ma7 = deaths_growth_ma7 * 100) %>%
-  filter(jurisdiction %in% c(jurisdictionsFocalWorldUS, jurisdictionsFocalCanada), day_model>=9)
+  filter(jurisdiction %in% c(jurisdictionsFocalWorldUS, jurisdictionsFocalCanada), day_model>=minDayModel)
 
 p <- plotData %>%
   ggplot(aes(x=day_model, y=deaths_growth_ma7, group=jurisdiction)) +
