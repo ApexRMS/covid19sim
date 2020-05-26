@@ -32,8 +32,10 @@ jurisdictionsModel = c("Canada",
 
 # Jurisdictions to be used for reference in the growth rate scenarios
 jurisdictionsGrowthReference = c("Italy", "Spain", "France", "South Korea", "United States")   # Complete list (for analysis)
-jurisdictionsGrowthReference1 = c("Italy", "Spain", "France", "South Korea", "United States")  # Partial list (for library sampling)
-jurisdictionsGrowthReference2 = c("Italy", "Spain", "France", "South Korea")                   # Another partial list
+#jurisdictionsGrowthReference1 = c("Italy", "Spain", "France", "South Korea", "United States")  # Partial list (for library sampling)
+jurisdictionsGrowthReference1 = c("Italy", "France", "South Korea", "United States")           # Partial list (for library sampling)
+#jurisdictionsGrowthReference2 = c("Italy", "Spain", "France", "South Korea")                   # Another partial list
+jurisdictionsGrowthReference2 = c("Italy", "France", "South Korea")                   # Another partial list
 # jurisdictionsGrowthReference3 = c("Italy", "Spain", "France", "United States")                 # Another partial list
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReference1,
