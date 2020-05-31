@@ -19,12 +19,11 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 source("covid19-local.R")
 source("covid19-constants.R")
 
-
 # Run analysis -----------------------------
 source("covid19-analysis.R")
 
 
-# Plot growth rates (Canada, 4 provinces, 5 countries) ------------------------
+# Plot growth rates ------------------------
 
 deaths <- read_csv(paste0(outputFolder, "/", "deaths-output.csv"))
 whiteTheme <- theme(
@@ -41,58 +40,53 @@ whiteTheme <- theme(
   legend.text = element_text(size=14),
   legend.title = element_blank())
 
-# Define colours for all focal jurisdictions
-brewer.pal(n = 8, name = "Dark2")
-jurisdictionLineColor <- c("Canada"="red3", "France"="darkorchid3", "Italy"="goldenrod1", "South Korea"="dodgerblue4", "Spain"="darkolivegreen4", "Canada - Alberta"="#666666", "Canada - British Columbia"="#A6761D", "Canada - Ontario"="#1B9E77", "Canada - Quebec"="#D95F02")
-jurisdictionLineColor <- c("Canada"="red3", "United States"="black", "France"="darkorchid3", "Italy"="goldenrod1", "South Korea"="dodgerblue4", "Spain"="darkolivegreen4", "Canada - Alberta"="#666666", "Canada - British Columbia"="#A6761D", "Canada - Ontario"="#1B9E77", "Canada - Quebec"="#D95F02")
-#jurisdictionLineColor <- c("Canada"="red3", "France"="#C4961A", "Italy"="#F4EDCA", "South Korea"="#D16103", "Spain"="#C3D7A4", "Canada - Alberta"="#666666", "Canada - British Columbia"="#A6761D", "Canada - Ontario"="#1B9E77", "Canada - Quebec"="#D95F02")
-jurisdictionLineType <- c("Canada"="solid", "United States"="longdash", "France"="longdash",  "Italy"="longdash", "South Korea"="longdash", "Spain"="longdash", "Canada - Alberta"="solid", "Canada - British Columbia"="solid", "Canada - Ontario"="solid", "Canada - Quebec"="solid" )
-jurisdictionLineSize <- c("Canada"=1, "United States"=0.5, "France"=0.5,  "Italy"=0.5, "South Korea"=0.5, "Spain"=0.5, "Canada - Alberta"=1, "Canada - British Columbia"=1, "Canada - Ontario"=1, "Canada - Quebec"=1)
-jurisdictionLabels <- c("Canada"="Canada", "United States"="United States", "France"="France", "Italy"="Italy", "South Korea"="South Korea", "Spain"="Spain", "Canada - Alberta"="Alberta", "Canada - British Columbia"="British Columbia", "Canada - Ontario"="Ontario", "Canada - Quebec"="Quebec")
-
-# Define labels for canadian focal jurisdictions
-jurisdictionFocalCanadaLabels <- c("Canada"="Canada", "Canada - Alberta"="Alberta", "Canada - British Columbia"="British Columbia", "Canada - Ontario"="Ontario", "Canada - Quebec"="Quebec")
-
-minDayModel = 9
+# Plot first set of jurisdictions
 minDayModel = 40
 plotData = mutate(deaths, deaths_growth_ma7 = deaths_growth_ma7 * 100) %>%
-  filter(jurisdiction %in% c(jurisdictionsFocalWorldUS, jurisdictionsFocalCanada), day_model>=minDayModel)
-
+  filter(jurisdiction %in% jurisdictionsGrowth1, day_model>=minDayModel)
+plotDataRef = mutate(deaths, deaths_growth_ma7 = deaths_growth_ma7 * 100) %>%
+  filter(jurisdiction %in% jurisdictionsGrowthReference1, day_model>=minDayModel)
 p <- plotData %>%
   ggplot(aes(x=day_model, y=deaths_growth_ma7, group=jurisdiction)) +
-  geom_line(aes(color=jurisdiction, linetype=jurisdiction, size=jurisdiction)) +
-  #  geom_point(aes(color=jurisdiction), size=1.5) +
-  scale_color_manual(values=jurisdictionLineColor, labels = jurisdictionLabels) +
-  scale_linetype_manual(values=jurisdictionLineType, labels = jurisdictionLabels) +
-  scale_size_manual(values = jurisdictionLineSize, labels = jurisdictionLabels) +
+  geom_line(data=plotData, aes(color=jurisdiction), size=1.5) +
+  geom_line(data=plotDataRef, aes(color=jurisdiction), size=0.5) +
   scale_x_continuous("Days since 5 total deaths") +
   scale_y_continuous("% daily growth (7-day moving avg.)") + 
   whiteTheme
 p
-ggsave(paste0(plotFolder, "/deaths_growth_ma7_world.png"), p, width=10, height=5, dpi=300)
+ggsave(paste0(plotFolder, "/deaths_growth_ma7_1_", runDate, ".png"), p, width=10, height=5, dpi=300)
 
-# Plot growth rates (Other Provinces) ------------------------
-
-
+# Plot second set of jurisdictions
+minDayModel = 40
 plotData = mutate(deaths, deaths_growth_ma7 = deaths_growth_ma7 * 100) %>%
-  filter(jurisdiction %in% c(jurisdictionsFocalWorldUS, 
-                             "Canada - Nova Scotia",
-                             "Canada - Manitoba"),
-         day_model>=9)
-
+  filter(jurisdiction %in% jurisdictionsGrowth2, day_model>=minDayModel)
+plotDataRef = mutate(deaths, deaths_growth_ma7 = deaths_growth_ma7 * 100) %>%
+  filter(jurisdiction %in% jurisdictionsGrowthReference2, day_model>=minDayModel)
 p <- plotData %>%
   ggplot(aes(x=day_model, y=deaths_growth_ma7, group=jurisdiction)) +
-  geom_line(aes(color=jurisdiction)) +
-  #  geom_point(aes(color=jurisdiction), size=1.5) +
-  # scale_color_manual(values=jurisdictionLineColor, labels = jurisdictionLabels) +
-  # scale_linetype_manual(values=jurisdictionLineType, labels = jurisdictionLabels) +
-  # scale_size_manual(values = jurisdictionLineSize, labels = jurisdictionLabels) +
+  geom_line(data=plotData, aes(color=jurisdiction), size=1.5) +
+  geom_line(data=plotDataRef, aes(color=jurisdiction), size=0.5) +
   scale_x_continuous("Days since 5 total deaths") +
   scale_y_continuous("% daily growth (7-day moving avg.)") + 
   whiteTheme
 p
-ggsave(paste0(plotFolder, "/deaths_growth_ma7_other.png"), p, width=10, height=5, dpi=300)
+ggsave(paste0(plotFolder, "/deaths_growth_ma7_2_", runDate, ".png"), p, width=10, height=5, dpi=300)
 
+# Plot third set of jurisdictions
+minDayModel = 9
+plotData = mutate(deaths, deaths_growth_ma7 = deaths_growth_ma7 * 100) %>%
+  filter(jurisdiction %in% jurisdictionsGrowth3, day_model>=minDayModel)
+plotDataRef = mutate(deaths, deaths_growth_ma7 = deaths_growth_ma7 * 100) %>%
+  filter(jurisdiction %in% jurisdictionsGrowthReference3, day_model>=minDayModel)
+p <- plotData %>%
+  ggplot(aes(x=day_model, y=deaths_growth_ma7, group=jurisdiction)) +
+  geom_line(data=plotData, aes(color=jurisdiction), size=1.5) +
+  geom_line(data=plotDataRef, aes(color=jurisdiction), size=0.5) +
+  scale_x_continuous("Days since 5 total deaths") +
+  scale_y_continuous("% daily growth (7-day moving avg.)") + 
+  whiteTheme
+p
+ggsave(paste0(plotFolder, "/deaths_growth_ma7_3_", runDate, ".png"), p, width=10, height=5, dpi=300)
 
 
 # Create SyncroSim template -----------------------------

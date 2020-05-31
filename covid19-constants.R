@@ -31,25 +31,27 @@ jurisdictionsModel = c("Canada",
                        "Canada - Quebec")
 
 # Jurisdictions to be used for reference in the growth rate scenarios
-jurisdictionsGrowthReference = c("Italy", "Spain", "France", "South Korea", "United States")   # Complete list (for analysis)
-#jurisdictionsGrowthReference1 = c("Italy", "Spain", "France", "South Korea", "United States")  # Partial list (for library sampling)
-jurisdictionsGrowthReference1 = c("Italy", "France", "South Korea", "United States")           # Partial list (for library sampling)
-#jurisdictionsGrowthReference2 = c("Italy", "Spain", "France", "South Korea")                   # Another partial list
-jurisdictionsGrowthReference2 = c("Italy", "France", "South Korea")                   # Another partial list
-# jurisdictionsGrowthReference3 = c("Italy", "Spain", "France", "United States")                 # Another partial list
+# jurisdictionsGrowthReference = c("France", "Italy", "Japan", "United States", "United States - Washington") # Complete list - not used?
+jurisdictionsGrowth1 = c("Canada", "Canada - Quebec", "Canada - Ontario")
+jurisdictionsGrowth2 = c("Canada - Alberta", "Canada - British Columbia")
+jurisdictionsGrowth3 = c("Canada - Manitoba", "Canada - Nova Scotia")
+
+jurisdictionsGrowthReference1 = c("France", "Italy", "United States", "United States - Washington")
+jurisdictionsGrowthReference2 = c("France", "Italy", "United States - Washington", "South Korea")
+jurisdictionsGrowthReference3 = c("France", "Italy", "South Korea")
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReference1,
-                                    "Canada - Alberta" = jurisdictionsGrowthReference1,
-                                    "Canada - British Columbia" = jurisdictionsGrowthReference1,
-                                    "Canada - Manitoba" = jurisdictionsGrowthReference2,
-                                    "Canada - Nova Scotia" = jurisdictionsGrowthReference2,
+                                    "Canada - Alberta" = jurisdictionsGrowthReference2,
+                                    "Canada - British Columbia" = jurisdictionsGrowthReference2,
+                                    "Canada - Manitoba" = jurisdictionsGrowthReference3,
+                                    "Canada - Nova Scotia" = jurisdictionsGrowthReference3,
                                     "Canada - Ontario" = jurisdictionsGrowthReference1,
                                     "Canada - Quebec" = jurisdictionsGrowthReference1)
 
 # Jurisdictions to be included in plots
-jurisdictionsFocalWorld = c("Italy", "Spain", "France", "South Korea", "Canada")
-jurisdictionsFocalWorldUS = c("Italy", "Spain", "France", "South Korea", "United States", "Canada")
-jurisdictionsFocalCanada = c("Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
+# jurisdictionsFocalWorld = c("Italy", "Spain", "France", "South Korea", "Canada")
+# jurisdictionsFocalWorldUS = c("Italy", "Spain", "France", "South Korea", "United States", "Canada")
+# jurisdictionsFocalCanada = c("Canada", "Canada - Quebec", "Canada - Ontario", "Canada - Alberta", "Canada - British Columbia")
 
 # Jurisdictions to be included in growth regressions
 jurisdictionsRegression = c("Italy", "Spain", "France", "South Korea",

@@ -158,4 +158,14 @@ write_csv(deaths_daily_all, append=T, paste0(outputFolder, "/", "deaths-daily-mo
 write_csv(infected_cumulative_all, append=T, paste0(outputFolder, "/", "infected-cumulative-model-output.csv"))
 write_csv(infected_daily_all, append=T, paste0(outputFolder, "/", "infected-daily-model-output.csv"))
 
+# Check output
+deathsCheck = read_csv(paste0(outputFolder, "/", "deaths-cumulative-model-output.csv"))
+lastDate = max(deathsCheck$date_model_run)
+priorDate = runDate - ddays(1)
+runDateRecords = nrow(filter(deathsCheck, date_model_run == runDate))
+priorDateRecords = nrow(filter(deathsCheck, date_model_run == priorDate))
 
+runDate
+lastDate
+runDateRecords
+priorDateRecords
