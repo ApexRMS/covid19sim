@@ -90,7 +90,7 @@ ggsave(paste0(plotFolder, "/deaths_growth_ma7_3_", runDate, ".png"), p, width=10
 
 
 
-# Shiny growth rates - run app.R
+# Shiny growth rates - run app.R --------------
 
 # Create SyncroSim template -----------------------------
 source("covid19-ssim-template.R")
