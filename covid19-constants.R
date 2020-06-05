@@ -36,18 +36,18 @@ jurisdictionsGrowth1 = c("Canada", "Canada - Quebec", "Canada - Ontario")
 jurisdictionsGrowth2 = c("Canada - Alberta", "Canada - British Columbia")
 jurisdictionsGrowth3 = c("Canada - Manitoba", "Canada - Nova Scotia")
 
-jurisdictionsGrowthReference = c("France", "Italy", "South Korea", "United States", "United States - Washington")
-jurisdictionsGrowthReference1 = c("France", "Italy", "United States", "United States - Washington")
-jurisdictionsGrowthReference2 = c("France", "Italy", "South Korea")
+jurisdictionsGrowthReference = c("France", "Italy", "Japan", "South Korea", "United States", "United States - Washington")
+jurisdictionsGrowthReference1 = c("France", "Italy", "Japan", "United States", "United States - Washington")
+jurisdictionsGrowthReference2 = c("France", "Italy", "United States", "United States - Washington")
 jurisdictionsGrowthReference3 = c("France", "Italy", "South Korea")
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReference1,
-                                    "Canada - Alberta" = jurisdictionsGrowthReference2,
-                                    "Canada - British Columbia" = jurisdictionsGrowthReference2,
+                                    "Canada - Alberta" = jurisdictionsGrowthReference3,
+                                    "Canada - British Columbia" = jurisdictionsGrowthReference3,
                                     "Canada - Manitoba" = jurisdictionsGrowthReference3,
                                     "Canada - Nova Scotia" = jurisdictionsGrowthReference3,
                                     "Canada - Ontario" = jurisdictionsGrowthReference1,
-                                    "Canada - Quebec" = jurisdictionsGrowthReference1)
+                                    "Canada - Quebec" = jurisdictionsGrowthReference2)
 
 # Jurisdictions to be included in plots
 # jurisdictionsFocalWorld = c("Italy", "Spain", "France", "South Korea", "Canada")
