@@ -39,13 +39,13 @@ numberJobs = 7
 
 # Backup the output files
 file.copy(paste0(outputFolder, "/", "deaths-cumulative-model-output.csv"), 
-          paste0(runFolder, "/", "deaths-cumulative-model-output-bak.csv"), overwrite=T)
+          paste0(runFolder, "/", "deaths-cumulative-model-output.csv"), overwrite=T)
 file.copy(paste0(outputFolder, "/", "deaths-daily-model-output.csv"), 
-          paste0(runFolder, "/", "deaths-daily-model-output-bak.csv"), overwrite=T)
+          paste0(runFolder, "/", "deaths-daily-model-output.csv"), overwrite=T)
 file.copy(paste0(outputFolder, "/", "infected-cumulative-model-output.csv"), 
-          paste0(runFolder, "/", "infected-cumulative-model-output-bak.csv"), overwrite=T)
+          paste0(runFolder, "/", "infected-cumulative-model-output.csv"), overwrite=T)
 file.copy(paste0(outputFolder, "/", "infected-daily-model-output.csv"), 
-          paste0(runFolder, "/", "infected-daily-model-output-bak.csv"), overwrite=T)
+          paste0(runFolder, "/", "infected-daily-model-output.csv"), overwrite=T)
 
 # Create a copy of the template library to work with in the website folder
 sourceFileName = paste0(templateFolder, "/", libraryName, ".ssim")
