@@ -8,7 +8,7 @@ library(lubridate)
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
-# runDate = as_date("2020-06-28")
+# runDate = as_date("2020-07-02")
 runDate = today()
 # ***************************************************************
 
