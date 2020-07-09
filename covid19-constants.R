@@ -8,7 +8,7 @@ library(lubridate)
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
-#runDate = as_date("2020-07-05")
+# runDate = as_date("2020-07-08")
 runDate = today()
 # ***************************************************************
 
@@ -31,17 +31,12 @@ jurisdictionsModel = c("Canada",
                        "Canada - Quebec")
 
 # Jurisdictions to be used for reference in the growth rate scenarios
-# jurisdictionsGrowthReference = c("France", "Italy", "Japan", "United States", "United States - Washington") # Complete list - not used?
-jurisdictionsGrowth1 = c("Canada", "Canada - Quebec", "Canada - Ontario")
-jurisdictionsGrowth2 = c("Canada - Alberta", "Canada - British Columbia")
-jurisdictionsGrowth3 = c("Canada - Manitoba", "Canada - Nova Scotia")
-
-jurisdictionsGrowthReference = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
-jurisdictionsGrowthReferenceCA = c("France", "Italy", "Japan", "United States - Washington")
-jurisdictionsGrowthReferenceQC = c("France", "Italy", "Japan", "South Korea")
-jurisdictionsGrowthReferenceON = c("France", "Italy", "Japan", "United States - Washington")
-jurisdictionsGrowthReferenceBC = c("France", "Italy", "Japan", "United States - Washington")
-jurisdictionsGrowthReferenceAB = c("France", "Italy", "Japan", "South Korea")
+jurisdictionsGrowthReference = c("France", "Iran", "Italy", "Japan", "South Korea", "United States - Washington")
+jurisdictionsGrowthReferenceCA = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
+jurisdictionsGrowthReferenceQC = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
+jurisdictionsGrowthReferenceON = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
+jurisdictionsGrowthReferenceBC = c("Italy", "Iran", "Japan", "South Korea", "United States - Washington")
+jurisdictionsGrowthReferenceAB = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
 jurisdictionsGrowthReferenceMB = c("France", "Italy", "South Korea")
 jurisdictionsGrowthReferenceNS = c("France", "Italy", "South Korea")
 
