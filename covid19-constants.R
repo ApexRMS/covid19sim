@@ -8,8 +8,8 @@ library(lubridate)
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
-# runDate = as_date("2020-07-15")
-runDate = today()
+runDate = as_date("2020-07-19")
+# runDate = today()
 # ***************************************************************
 
 
@@ -35,7 +35,7 @@ jurisdictionsGrowthReference = c("France", "Iran", "Italy", "Japan", "South Kore
 jurisdictionsGrowthReferenceCA = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
 jurisdictionsGrowthReferenceQC = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
 jurisdictionsGrowthReferenceON = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
-jurisdictionsGrowthReferenceBC = c("Italy", "Iran", "Japan", "South Korea", "United States - Washington")
+jurisdictionsGrowthReferenceBC = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
 jurisdictionsGrowthReferenceAB = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
 jurisdictionsGrowthReferenceMB = c("France", "Italy", "South Korea")
 jurisdictionsGrowthReferenceNS = c("France", "Italy", "South Korea")
