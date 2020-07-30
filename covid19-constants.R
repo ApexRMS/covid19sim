@@ -8,8 +8,8 @@ library(lubridate)
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
-# runDate = as_date("2020-07-21")
-runDate = today()
+runDate = as_date("2020-07-28")
+# runDate = today()
 # ***************************************************************
 
 
@@ -31,12 +31,12 @@ jurisdictionsModel = c("Canada",
                        "Canada - Quebec")
 
 # Jurisdictions to be used for reference in the growth rate scenarios
-jurisdictionsGrowthReference = c("France", "Iran", "Italy", "Japan", "South Korea", "United States - Washington")
+jurisdictionsGrowthReference = c("France", "Iran", "Italy", "Japan", "South Korea", "United States - California", "United States - Washington")
 jurisdictionsGrowthReferenceCA = c("France", "Italy", "Japan", "South Korea")
 jurisdictionsGrowthReferenceQC = c("France", "Italy", "Japan", "South Korea")
 jurisdictionsGrowthReferenceON = c("France", "Italy", "Japan", "South Korea")
-jurisdictionsGrowthReferenceBC = c("France", "Italy", "Japan", "South Korea")
-jurisdictionsGrowthReferenceAB = c("France", "Iran", "Italy", "Japan", "South Korea", "United States - Washington")
+jurisdictionsGrowthReferenceBC = c("Italy", "Japan", "South Korea", "United States - Washington")
+jurisdictionsGrowthReferenceAB = c("Iran", "Italy", "Japan", "South Korea", "United States - California", "United States - Washington")
 jurisdictionsGrowthReferenceMB = c("France", "Italy", "Japan")
 jurisdictionsGrowthReferenceNS = c("France", "Italy", "Japan")
 
