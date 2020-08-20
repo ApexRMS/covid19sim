@@ -38,7 +38,7 @@ jurisdictionsGrowthReferenceQC = c("France", "Italy", "South Korea")
 jurisdictionsGrowthReferenceON = c("France", "Italy", "South Korea")
 jurisdictionsGrowthReferenceBC = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
 jurisdictionsGrowthReferenceAB = c("United States - Georgia", "United States - Oregon", "United States - California", "United States - Washington")
-jurisdictionsGrowthReferenceMB = c("France", "Italy", "South Korea")
+jurisdictionsGrowthReferenceMB = c("Australia", "Japan", "United States - Montana")
 jurisdictionsGrowthReferenceNS = c("France", "Italy", "South Korea")
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReferenceCA,
