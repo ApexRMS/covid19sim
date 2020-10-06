@@ -18,6 +18,17 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 source("covid19-local.R")
 source("covid19-constants.R")
+# Check that both data repos are synced to the same date ----------------
+if(
+  read.delim(paste0(dataFolder, "/update_time.txt"), header=F) %>%
+  pull %>%
+  as.Date !=
+  read_csv(paste0(dataWorldFolder,"/time_series_covid19_deaths_global.csv"), n_max = 0) %>%
+  names() %>%
+  tail(1) %>%
+  as.Date(format = "%m/%d/%y")
+)
+  stop("The John Hopkins and Isha Berry databases are not synced to the same date. Please wait until both are up-to-date.")
 
 # Run analysis -----------------------------
 source("covid19-analysis.R")
