@@ -34,12 +34,12 @@ jurisdictionsModel = c("Canada",
 jurisdictionsGrowthReference = c("Australia", "France", "Italy", "Japan", "South Korea", "United States",
                                  "United States - California", "United States - Georgia", "United States - Montana", 
                                  "United States - Oregon", "United States - Washington")
-jurisdictionsGrowthReferenceCA = c("France", "Italy", "South Korea")
-jurisdictionsGrowthReferenceQC = c("France", "Italy", "South Korea")
-jurisdictionsGrowthReferenceON = c("France", "Italy", "South Korea")
+jurisdictionsGrowthReferenceCA = c("France", "Italy", "South Korea", "Japan")
+jurisdictionsGrowthReferenceQC = c("France", "Italy", "South Korea", "Japan")
+jurisdictionsGrowthReferenceON = c("France", "Italy", "South Korea", "Japan")
 jurisdictionsGrowthReferenceBC = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
 jurisdictionsGrowthReferenceAB = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
-jurisdictionsGrowthReferenceMB = c("Australia", "United States - Montana")
+jurisdictionsGrowthReferenceMB = c("Australia", "United States - Montana", "United States - Oregon")
 jurisdictionsGrowthReferenceNS = c("France", "Italy")
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReferenceCA,
