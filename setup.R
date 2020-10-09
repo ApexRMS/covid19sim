@@ -2,6 +2,7 @@
 # sources to run Covid-19 forecasts and generate shiny applets with the data
 
 # Install missing packages ----------------------------------------------------
+message("Checking for missing packages...")
 
 packages <- c("tidyverse",
               "magrittr",
@@ -35,6 +36,8 @@ invisible(
          })
 )
 
+message("Done checking packages!\n")
+
 ## Repeat for packages only available on GitHub
 invisible(
   lapply(githubPackages,
@@ -47,6 +50,7 @@ invisible(
 )
 
 # Prepare directories ---------------------------------------------------------
+message("Creating missing directories...")
 
 directories <- c("external_data",
                  "ssim",
@@ -59,17 +63,22 @@ directories <- c("external_data",
 directories %>%
   walk(dir.create, showWarnings = F)
 
+message("Done creating missing directories!\n")
+
 # Clone external data ---------------------------------------------------------
+message("Cloning external data sources...")
 
 if(!dir.exists("external_data/canada"))
-  system("git clone --quiet \\
-         https://github.com/ishaberry/Covid19Canada external_data/canada")
+  system("git clone --quiet https://github.com/ishaberry/Covid19Canada external_data/canada")
 
 if(!dir.exists("external_data/world"))
-  system("git clone --quiet \\
-         https://github.com/CSSEGISandData/COVID-19 external_data/world")
+  system("git clone --quiet https://github.com/CSSEGISandData/COVID-19 external_data/world")
+
+message("Done cloning external data sources!\n")
 
 # Download IHME data for shiny app --------------------------------------------
+
+message("Fetching IHME data models for shiny app...")
 
 # Scrape the list of IHME model archives using `rvest`
 ihmeURLs <- "http://www.healthdata.org/covid/data-downloads" %>%
@@ -91,3 +100,7 @@ if(dir("shiny/IHME") %>% length == 0)
 
 # The latest IHME archive is listed separately; check that that is up to date
 updateIHME()
+
+message("Done fetching IHME models!\n")
+message("Done setup!")
+
