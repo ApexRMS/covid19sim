@@ -33,6 +33,10 @@ downloadIHME <- function(url, folderName, ihmeDir = "shiny/IHME/"){
                       "Reference_hospitalization_all_locs.csv"),
                 str_c(ihmeDir, folderName, "/",
                       "Hospitalization_all_locs.csv"))
+    file.rename(str_c(ihmeDir, folderName, "/",
+                      "ihme-covid19_all_locs.csv"),
+                str_c(ihmeDir, folderName, "/",
+                      "Hospitalization_all_locs.csv"))
   })
   invisible()
 }
