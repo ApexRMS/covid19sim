@@ -8,7 +8,7 @@
 dataFolder = "external_data/canada"
 
 # Git repository for World data: see https://github.com/CSSEGISandData/COVID-19
-dataWorldFolder = "external_data/world"
+dataWorldFolder = "external_data/world/csse_covid_19_data/csse_covid_19_time_series"
 
 # Folder for input data files
 inputFolder = "data"
