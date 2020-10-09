@@ -98,3 +98,4 @@ message("Building shiny app...")
 source("shiny/build.R")
 message("Done building shiny app!\n")
 
+runApp("shiny/covid19canada/app.R")
