@@ -85,3 +85,16 @@ message("Done preparing Syncrosim template!\n")
 message("Running forecast...")
 source("covid19-ssim-run.R")
 message("Done running forecast!\n")
+
+# Update IHME model data for shiny app ----------------------------------------
+
+message("Fetching IHME data for shiny app...")
+updateIHME()
+message("Done fetching IHME data!\n")
+
+# Build and launch shiny app locally ------------------------------------------
+
+message("Building shiny app...")
+source("shiny/build.R")
+message("Done building shiny app!\n")
+

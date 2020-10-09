@@ -104,3 +104,4 @@ updateIHME()
 message("Done fetching IHME models!\n")
 message("Done setup!")
 
+# TODO: check for Syncrosim install, mono (for unix), and epidemic package
