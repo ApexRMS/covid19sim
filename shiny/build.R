@@ -23,7 +23,7 @@ library(tidyverse)
 library(magrittr)
 
 # Data directories
-syncroSimDataDir = "ssim/data/"        # path to syncrosim outputs
+syncroSimDataDir = "data/"             # path to syncrosim outputs
 ihmeDataDir = "shiny/IHME"             # path to IHME data
 
 #### SyncroSim data ####
