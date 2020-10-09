@@ -10,7 +10,6 @@
 library(rsyncrosim)
 library(tidyverse)
 library(lubridate)
-library(rstudioapi)
 
 # ******************* SET THIS DATE BEFORE RUNNING **************
 # This should be the day after the last death data
@@ -19,10 +18,6 @@ library(rstudioapi)
 # ***************************************************************
 
 # Setup -------------------------
-
-# Set the working directory to the script's folder (works only in RStudio)
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-
 source("covid19-local.R")
 source("covid19-constants.R")
 

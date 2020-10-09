@@ -24,9 +24,6 @@ library(thematic)
 library(shinythemes)
 library(shinyBS)
 
-# Set the working directory to the script's folder (works only in RStudio)
-#setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-
 # Turn on automatic theming
 thematic_on()
 onStop(thematic_off)

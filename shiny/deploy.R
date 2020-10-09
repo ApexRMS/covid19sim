@@ -22,14 +22,9 @@
 library(tidyverse)
 library(magrittr)
 
-# Set the working directory to the script's folder (works only in RStudio)
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-
 # Data directories
-syncroSimDataDir = "C:/gitprojects/covid19sim/data/"
-#syncroSimDataDir = "E:/covid19sim/data/"
-ihmeDataDir = "C:/gitprojects/covid19simshiny/src/IHME" # Local folder where the IHME data is located
-#ihmeDataDir = "E:/covid19sandbox/src/IHME"
+syncroSimDataDir = "ssim/data/"
+ihmeDataDir = "shiny/IHME" # Local folder where the IHME data is located
 
 #### SyncroSim data ####
 outputFiles <- list.files(syncroSimDataDir, pattern="model-output")
@@ -212,7 +207,7 @@ data %<>% filter(!((DataType == "Observed") & (!date_model_run == obsDate))) # R
 # Write observed data to its own file
 data %>%
   filter(DataTag == 'Observed')  %>%
-  write_csv(paste0(getwd(),"/covid19canada/data/data-obs.csv"))
+  write_csv("shiny/covid19canada/data/data-obs.csv"))
 
 # Split modelled data by date and save
 data %>%
@@ -221,8 +216,8 @@ data %>%
   group_split %>%                                                               # Split into a list of tibbles by date
   set_names(data %>% pull(date_model_run) %>% format('%Y-%m-%d') %>% unique) %>%
   iwalk(~                                                                       # write a csv for each list entry (.x) using the element's name (.y) 
-    if(!file.exists(paste0(getwd(),"/covid19canada/data/data-", .y, ".csv")))   # Avoid rewriting existing files unnecessarily
-      write_csv(.x, paste0(getwd(),"/covid19canada/data/data-", .y, ".csv"))
+    if(!file.exists(paste0("shiny/covid19canada/data/data-", .y, ".csv")))   # Avoid rewriting existing files unnecessarily
+      write_csv(.x, paste0("shiny/covid19canada/data/data-", .y, ".csv"))
   )
 
 # Save the list of dates with IHME model data for use by app
@@ -232,7 +227,7 @@ data %>%
   unique %>%
   sort %>%
   tibble(ihme = .) %>%
-  write_csv(paste0(getwd(),"/covid19canada/data/ihme-dates.csv"))
+  write_csv("shiny/covid19canada/data/ihme-dates.csv")
 
 #### Deploy the app ####
 library(rsconnect)
@@ -243,5 +238,5 @@ options(rsconnect.http = "curl")
 
 rsconnect::setAccountInfo(name=userName, token=userToken, secret=userSecret)
 
-shinyAppDir = "C:/gitprojects/covid19simshiny/src/covid19canada"
+shinyAppDir = "shiny/covid19canada"
 rsconnect::deployApp(shinyAppDir)

@@ -11,13 +11,9 @@
 #   Updated CSV files of deaths and forecasts in git repo
 
 # Setup -------------------------
-library(rstudioapi)
-
-# Set the working directory to the script's folder (works only in RStudio)
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-
 source("covid19-local.R")
 source("covid19-constants.R")
+
 # Check that both data repos are synced to the same date ----------------
 if(
   read.delim(paste0(dataFolder, "/update_time.txt"), header=F) %>%
