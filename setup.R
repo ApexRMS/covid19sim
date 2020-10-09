@@ -73,50 +73,20 @@ if(!dir.exists("external_data/world"))
 # Scrape the list of IHME model archives using `rvest`
 ihmeURLs <- "http://www.healthdata.org/covid/data-downloads" %>%
   read_html %>%                        # Pull html for the downloads page
-  html_nodes(css = "a") %>%            # Extract "a" nodes
+  html_nodes(css = "a") %>%            # Extract hyperlink tags
   html_attr(name = "href") %>%         # Extract the urls
   str_subset("2020-.*zip") %>%         # Only keep urls for data archives
   set_names(.,                         # Name the urls by the date
             str_extract(., "202\\d-\\d\\d-\\d\\d") %>% # \d matches a digit 
-              str_replace_all("-", "_"))
+            str_replace_all("-", "_")) # Covert Y-M-D to Y_M_D
 
-# Store some helpful directory / file names
-ihmeDir <- "shiny/IHME/"
-ihmeZip <- str_c(ihmeDir, "temp.zip")
+# Source functions used for downloading IHME data
+source("headers/ihme.R")
 
-# Download, unpack, and standardize the IHME archives if the folder is empty
-if(dir(ihmeDir) %>% length == 0)
+# Download, unpack, and standardize past IHME archives if the folder is empty
+if(dir("shiny/IHME") %>% length == 0)
   ihmeURLs %>%
-    iwalk(function(url, folder){
-        # Download, unzip, and remove zip file
-        download.file(url, ihmeZip, quiet = T)
-        unzip(ihmeZip, exdir = ihmeDir)
-        file.remove(ihmeZip)
-        # Rename the extracted folder to yyyy_mmm_dd format (ie `folder`)
-        # - Early archives all used the same name without dates
-        if(file.exists(str_c(ihmeDir, "ihme-covid19")))
-          file.rename(str_c(ihmeDir, "ihme-covid19"), str_c(ihmeDir, folder))
-        # - Others add irregular suffixes
-        #   - ".+" matches any suffix after the standarized date format
-        if(dir(ihmeDir, pattern = "202\\d_\\d\\d_\\d\\d.+") %>% length > 0){
-          file.rename(dir(ihmeDir, pattern = "202\\d_\\d\\d_\\d\\d.+",
-                          full.names = T),
-                      str_c(ihmeDir, folder))
-        }
-        # Finally remove and rename files within the folder as needed
-        # - suppressWarnings is used as these files aren't always present
-        suppressWarnings({
-          file.remove(str_c(ihmeDir, folder, "/", 
-                          c("readme.txt",
-                            "IHME_COVID_19_Data_Release_Information_Sheet.pdf",
-                            "Best_mask_hospitalization_all_locs.csv",
-                            "Worse_hospitalization_all_locs.csv")))
-          file.rename(str_c(ihmeDir, folder, "/",
-                            "Reference_hospitalization_all_locs.csv"),
-                      str_c(ihmeDir, folder, "/",
-                            "Hospitalization_all_locs.csv"))
-        })
-        print(folder)
-      }
-    )
+    iwalk(downloadIHME)
 
+# The latest IHME archive is listed separately; check that that is up to date
+updateIHME()
