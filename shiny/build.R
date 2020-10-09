@@ -23,14 +23,14 @@ library(tidyverse)
 library(magrittr)
 
 # Data directories
-syncroSimDataDir = "ssim/data/"
-ihmeDataDir = "shiny/IHME" # Local folder where the IHME data is located
+syncroSimDataDir = "ssim/data/"        # path to syncrosim outputs
+ihmeDataDir = "shiny/IHME"             # path to IHME data
 
 #### SyncroSim data ####
 outputFiles <- list.files(syncroSimDataDir, pattern="model-output")
 
 # Confirm there are exactly 4 output files
-if(!length(outputFiles) == 4){stop(paste("There are", length(outputFiles), "output files, instead of 4"))}
+if(!length(outputFiles) == 4){stop(paste("There are", length(outputFiles), " Syncrosim output files, instead of 4"))}
 
 # Format
 dailyDeaths <- read.csv(paste0(syncroSimDataDir, outputFiles[which(grepl("deaths-daily-model-output", outputFiles))])) %>%
@@ -207,7 +207,7 @@ data %<>% filter(!((DataType == "Observed") & (!date_model_run == obsDate))) # R
 # Write observed data to its own file
 data %>%
   filter(DataTag == 'Observed')  %>%
-  write_csv("shiny/covid19canada/data/data-obs.csv"))
+  write_csv("shiny/covid19canada/data/data-obs.csv")
 
 # Split modelled data by date and save
 data %>%
@@ -228,15 +228,3 @@ data %>%
   sort %>%
   tibble(ihme = .) %>%
   write_csv("shiny/covid19canada/data/ihme-dates.csv")
-
-#### Deploy the app ####
-library(rsconnect)
-options(rsconnect.http = "curl")
-#userName = readline(prompt="Enter rsconnect user name: ")
-#userToken = readline(prompt="Enter rsconnect token: ")
-#userSecret = readline(prompt="Enter rsconnect secret: ")
-
-rsconnect::setAccountInfo(name=userName, token=userToken, secret=userSecret)
-
-shinyAppDir = "shiny/covid19canada"
-rsconnect::deployApp(shinyAppDir)
