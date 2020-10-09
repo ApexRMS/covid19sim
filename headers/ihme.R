@@ -9,7 +9,7 @@ downloadIHME <- function(url, folderName, ihmeDir = "shiny/IHME/"){
 
   # Download, unzip, and remove zip file
   # - also store the original extracted folder name for renaming
-  download.file(url, ihmeZip)
+  download.file(url, ihmeZip, quiet = TRUE)
   oldfolderName <- unzip(ihmeZip, exdir = ihmeDir %>% str_sub(1,-2)) %>%
     `[`(1) %>%
     str_split("/") %>%
