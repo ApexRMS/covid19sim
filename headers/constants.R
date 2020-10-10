@@ -1,5 +1,5 @@
 #
-# covid19-constants.R: Constants for analysis and plotting of Covid-19 data in Canada
+# headers/constants.R: Constants for analysis and plotting of Covid-19 data in Canada
 #
 # Developed by ApexRMS
 

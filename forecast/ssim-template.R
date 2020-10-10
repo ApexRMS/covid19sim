@@ -1,9 +1,9 @@
 #
-# covid19-ssim-template.R: Preparing a template SyncroSim library for use with the "epidemic" package 
+# forecast/ssim-template.R: Preparing a template SyncroSim library for use with the "epidemic" package 
 #
 # Developed by ApexRMS
 
-# Input: CSV output from the script covid19-analysis.R plus other input CSV files
+# Input: CSV output from the script forecast/analysis.R plus other input CSV files
 # Output: covid19-canada-yyyy-mm-dd.ssim - SyncroSim library with corresponding model inputs
 #
 # devtools::install("C:/gitprojects/rsyncrosim")
@@ -18,13 +18,10 @@ library(lubridate)
 # ***************************************************************
 
 # Setup -------------------------
-source("covid19-local.R")
-source("covid19-constants.R")
+source("headers/local.R")
+source("headers/constants.R")
 
 # TODO: automatically pull from git data repos
-
-# Optionally run the analysis first to regenerate input data with new deaths
-# source("covid19-analysis.R")
 
 # Set constants
 

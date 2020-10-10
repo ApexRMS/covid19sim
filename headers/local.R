@@ -1,5 +1,5 @@
 #
-# covid19-local.R: Local folder settings for analysis and plotting of Covid-19 data in Canada 
+# headers/local.R: Local folder settings for analysis and plotting of Covid-19 data in Canada 
 #
 # Developed by ApexRMS
 #

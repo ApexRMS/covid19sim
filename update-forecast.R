@@ -38,8 +38,8 @@ tryCatch(
 message("Done loading packages!\n")
 
 # Source header files ---------------------------------------------------------
-source("covid19-local.R")
-source("covid19-constants.R")
+source("headers/local.R")
+source("headers/constants.R")
 source("headers/ihme.R")
 
 # Update external data sources ------------------------------------------------
@@ -71,19 +71,19 @@ if(
 # Make forecast ---------------------------------------------------------------
 
 message("Preparing model inputs...")
-source("covid19-analysis.R")
+source("forecast/analysis.R")
 message("Done preparing model inputs!\n")
 
 # Prepare Syncrosim template --------------------------------------------------
 
 message("Preparing Syncrosim template...")
-source("covid19-ssim-template.R")
+source("forecast/ssim-template.R")
 message("Done preparing Syncrosim template!\n")
 
 # Make forecast ---------------------------------------------------------------
 
 message("Running forecast...")
-source("covid19-ssim-run.R")
+source("forecast/ssim-run.R")
 message("Done running forecast!\n")
 
 # Update IHME model data for shiny app ----------------------------------------

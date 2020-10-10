@@ -1,5 +1,5 @@
 #
-# covid19-analysis.R: Preparing model inputs for use in the SyncroSim "epidemic" package 
+# forecast/analysis.R: Preparing model inputs for use in the SyncroSim "epidemic" package 
 #
 # Developed by ApexRMS
 #
@@ -9,7 +9,7 @@
 #  Infection fatality rates from Verity et al (2020)
 #  Canadian population data (from Statistics Canada)
 #  World population data (from United Nations)
-# Outputs: various CSV files summarizing the data (as required by the script covid19-ssim-template.R)
+# Outputs: various CSV files summarizing the data (as required by the script forecast/ssim-template.R)
 
 # Setup -------------------------
 
@@ -23,8 +23,8 @@ library(zoo)
 # runDate = today()
 # ***************************************************************
 
-source("covid19-local.R")
-source("covid19-constants.R")
+source("headers/local.R")
+source("headers/constants.R")
 
 # Load data -------------------------
 
