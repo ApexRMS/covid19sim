@@ -278,7 +278,7 @@ for (jur in jurisdictions$jurisdiction){
         
       } else {
         # Current measures scenario: growth rate sampled from other countries
-        myDatasheet = datasheet(myScenario, name = datasheetName, optional = T)
+        myDatasheet = datasheet(myScenario, name = datasheetName, optional = F)
         fileName = paste0(growthFolder, "/growth-output.csv")
         growthData = read.csv(fileName)
         growthData$date = as.character(growthData$date)
