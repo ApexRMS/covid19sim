@@ -62,8 +62,7 @@ cumulativeInfected <- read.csv(paste0(syncroSimDataDir, outputFiles[which(grepl(
 ihmeDates <- list.dirs(path = ihmeDataDir, full.names = F, recursive = F)
 
 for(i in ihmeDates){
-  # i = "2020_06_27"
-  ihmeFile <- list.files(paste(ihmeDataDir, i, sep="/"), pattern="ospitalization_all_locs")
+  ihmeFile <- list.files(paste(ihmeDataDir, i, sep="/"), pattern="^[hH]ospitalization_all_locs")
   data <- read.csv(paste(ihmeDataDir, i, ihmeFile, sep='/')) # Load
 
   if("date_reported" %in% colnames(data)) data %<>% rename(date = date_reported) # Rename column "date_reported", if present
