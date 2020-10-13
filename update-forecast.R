@@ -44,11 +44,12 @@ source("headers/ihme.R")
 
 # Update external data sources ------------------------------------------------
 
-message("Updating external data sources...")
+message("Updating internal and external data sources...")
 
 if(!dir.exists(dataFolder) | !dir.exists(dataWorldFolder))
   stop("External data source folders not found. Please run setup.R")
 
+system(str_c("git pull --quiet"))
 system(str_c("git -C ", dataFolder, " pull --quiet"))
 system(str_c("git -C ", dataWorldFolder, " pull --quiet"))
 
