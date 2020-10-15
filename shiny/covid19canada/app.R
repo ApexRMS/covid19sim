@@ -509,44 +509,37 @@ server <- function(input, output) {
       }
     }
     
+    # Annotate GTA death info reported on Oct 02
+    if(input$juris %in% c("Canada", "Canada - Ontario")) {
+      tooltipData <- tibble(
+        x = as.Date("2020-10-02"),
+        y = case_when(
+              input$juris == "Canada"           ~ c(110, 10000),
+              input$juris == "Canada - Ontario" ~ c(90,  3200)
+            ),
+        Metric = unique(dataSubset$Metric)
+      )
+      plot <- plot +
+        geom_point(data = tooltipData, aes(x = x, y = y), colour = sourceLineColor["Observed"])
+    }
+
     # Plotlyfy
     plot <- ggplotly(plot, tooltip=c("Date", "Mean", "Upper", "Lower")) %>%
       style(textposition = "bottom right") %>%
       config(displayModeBar = F)
-    
+
+    # Extract vector of plotly traces (loosely analogous to layers in ggplot2)
+    plotlyTraceModes <- map_chr(seq_along(plot$x$data), ~ plot$x$data[[.x]]$mode)
+
     # Disable hovering on geom_text
-    if(text){
-      
-      # If there is only observed data
-      if(!"Modeled" %in% dataSubset$DataType){
-        plot %<>% style(hoverinfo = "none", traces = c(3,4))
-        
-      # If there is only modeled data
-      }else if(!"Observed" %in% dataSubset$DataType){
-        
-        # If there is one type of modeled data
-        if(length(unique(dataSubset$DataTag[which(!dataSubset$DataType == 'Observed')])) == 1){
-          plot %<>% style(hoverinfo = "none", traces = c(5,6))
-          
-        # If there are two types of modeled data
-        }else{
-          plot %<>% style(hoverinfo = "none", traces = c(9,10))
-          
-        }
-      # If there is observed and modeled data
-      }else{
-        
-        # If there is one type of modeled data
-        if(length(unique(dataSubset$DataTag[which(!dataSubset$DataType == 'Observed')])) == 1){
-          plot %<>% style(hoverinfo = "none", traces = c(7,8))
-          
-          # If there are two types of modeled data
-        }else{
-          plot %<>% style(hoverinfo = "none", traces = c(11,12))
-        }
-      }
-    }
+    if(text)
+      plot <- plot %>% style(hoverinfo = "none", traces = which(plotlyTraceModes == "text"))
     
+    # Modify tooltip for Oct 02 if needed
+    walk(which(plotlyTraceModes == "markers"), # Only the outlier marker uses this plotly mode (analagous to a ggplot geom)
+      function(traceID) plot$x$data[[traceID]]$text <<- "78 deaths were announced in the GTA by Toronto<br />Public Health on this day after data cleaning efforts.<br />They do not represent new or recent deaths on this day."
+    )
+
     # Print plot
     plot
   })
