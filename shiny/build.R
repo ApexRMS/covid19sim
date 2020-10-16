@@ -215,8 +215,7 @@ data %>%
   group_split %>%                                                               # Split into a list of tibbles by date
   set_names(data %>% pull(date_model_run) %>% format('%Y-%m-%d') %>% unique) %>%
   iwalk(~                                                                       # write a csv for each list entry (.x) using the element's name (.y) 
-    if(!file.exists(paste0("shiny/covid19canada/data/data-", .y, ".csv")))   # Avoid rewriting existing files unnecessarily
-      write_csv(.x, paste0("shiny/covid19canada/data/data-", .y, ".csv"))
+    write_csv(.x, paste0("shiny/covid19canada/data/data-", .y, ".csv"))
   )
 
 # Save the list of dates with IHME model data for use by app
