@@ -33,13 +33,14 @@ jurisdictionsModel = c("Canada",
 # Jurisdictions to be used for reference in the growth rate scenarios
 jurisdictionsGrowthReference = c("Australia", "France", "Italy", "Japan", "South Korea", "United States",
                                  "United States - California", "United States - Georgia", "United States - Montana", 
-                                 "United States - Oregon", "United States - Washington")
+                                 "United States - Oregon", "United States - Washington",
+                                 "United States - Guam", "United States - Hawaii", "United States - Alaska")
 jurisdictionsGrowthReferenceCA = c("France", "Italy", "South Korea", "Japan")
 jurisdictionsGrowthReferenceQC = c("France", "Italy", "South Korea", "Japan")
 jurisdictionsGrowthReferenceON = c("France", "Italy", "South Korea", "Japan")
 jurisdictionsGrowthReferenceBC = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
 jurisdictionsGrowthReferenceAB = c("France", "Italy", "Japan", "South Korea", "United States - Washington")
-jurisdictionsGrowthReferenceMB = c("Australia", "United States - Montana", "United States - Oregon")
+jurisdictionsGrowthReferenceMB = c("United States - Montana", "United States - Alaska", "United States - Guam", "United States - Hawaii")
 jurisdictionsGrowthReferenceNS = c("France", "Italy")
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReferenceCA,
