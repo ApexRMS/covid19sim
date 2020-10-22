@@ -234,7 +234,13 @@ ui <- fluidPage(title = "COVID-19 SyncroSim",
                                            
                                            p("Powered by ",
                                              a("SyncroSim", 
-                                               href = "https://syncrosim.com/"))),
+                                               href = "https://syncrosim.com/")),
+                                           br(),
+
+                                           actionLink("disclaimer",
+                                                    "Disclaimer"),
+                                           bsTooltip("disclaimer",
+                                                     "The projections presented here are intended only as a demonstration of the model framework, and should not be considered actual projections for any of these jurisdictions.", placement="right")),
                               
                               mainPanel(width=9,
                                         
