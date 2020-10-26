@@ -1,234 +1,234 @@
 [1] "Italy"
 [1] "Period: post"
 [1] "deathsRegInitialDate: 2020-03-31"
-[1] "deathsRegFinalDate: 2020-10-24"
+[1] "deathsRegFinalDate: 2020-10-25"
 
 Call:
 lm(formula = deaths_cumulative_log ~ day_model, data = deathsReg)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.29823 -0.03077  0.01106  0.04886  0.06512 
+-0.29867 -0.03069  0.01094  0.04886  0.06506 
 
 Coefficients:
              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 4.3534980  0.0112992  385.29   <2e-16 ***
-day_model   0.0010870  0.0000744   14.61   <2e-16 ***
+(Intercept) 4.354e+00  1.125e-02  387.13   <2e-16 ***
+day_model   1.081e-03  7.378e-05   14.65   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.06443 on 206 degrees of freedom
-Multiple R-squared:  0.5089,	Adjusted R-squared:  0.5065 
-F-statistic: 213.5 on 1 and 206 DF,  p-value: < 2.2e-16
+Residual standard error: 0.06435 on 207 degrees of freedom
+Multiple R-squared:  0.5089,	Adjusted R-squared:  0.5066 
+F-statistic: 214.5 on 1 and 207 DF,  p-value: < 2.2e-16
 
-[1] "deathsGrowthInitTotal: 22568.257288427"
-[1] "deathsGrowthRateTotal: 1.00250606707242"
+[1] "deathsGrowthInitTotal: 22603.0267116259"
+[1] "deathsGrowthRateTotal: 1.00249136902451"
 [1] "******************************************************"
 [1] "Spain"
 [1] "Period: post"
 [1] "deathsRegInitialDate: 2020-04-04"
-[1] "deathsRegFinalDate: 2020-10-24"
+[1] "deathsRegFinalDate: 2020-10-25"
 
 Call:
 lm(formula = deaths_cumulative_log ~ day_model, data = deathsReg)
 
 Residuals:
       Min        1Q    Median        3Q       Max 
--0.256760 -0.016908 -0.000684  0.030749  0.074100 
+-0.256759 -0.016870 -0.000679  0.030575  0.074101 
 
 Coefficients:
              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 4.305e+00  8.352e-03  515.40   <2e-16 ***
-day_model   1.014e-03  5.833e-05   17.38   <2e-16 ***
+(Intercept) 4.305e+00  8.304e-03  518.40   <2e-16 ***
+day_model   1.014e-03  5.777e-05   17.55   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.04907 on 202 degrees of freedom
-Multiple R-squared:  0.5993,	Adjusted R-squared:  0.5973 
-F-statistic: 302.1 on 1 and 202 DF,  p-value: < 2.2e-16
+Residual standard error: 0.04894 on 203 degrees of freedom
+Multiple R-squared:  0.6028,	Adjusted R-squared:  0.6009 
+F-statistic: 308.1 on 1 and 203 DF,  p-value: < 2.2e-16
 
-[1] "deathsGrowthInitTotal: 20165.6822847196"
-[1] "deathsGrowthRateTotal: 1.00233754206072"
+[1] "deathsGrowthInitTotal: 20165.6149446139"
+[1] "deathsGrowthRateTotal: 1.00233757668644"
 [1] "******************************************************"
 [1] "France"
 [1] "Period: post"
 [1] "deathsRegInitialDate: 2020-04-07"
-[1] "deathsRegFinalDate: 2020-10-24"
+[1] "deathsRegFinalDate: 2020-10-25"
 
 Call:
 lm(formula = deaths_cumulative_log ~ day_model, data = deathsReg)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.33197 -0.02379  0.00719  0.04013  0.06126 
+-0.33214 -0.02377  0.00681  0.04013  0.06119 
 
 Coefficients:
              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 4.312e+00  1.062e-02  406.17   <2e-16 ***
-day_model   1.049e-03  7.316e-05   14.34   <2e-16 ***
+(Intercept) 4.312e+00  1.056e-02  408.55   <2e-16 ***
+day_model   1.047e-03  7.245e-05   14.45   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.06019 on 199 degrees of freedom
-Multiple R-squared:  0.5083,	Adjusted R-squared:  0.5058 
-F-statistic: 205.7 on 1 and 199 DF,  p-value: < 2.2e-16
+Residual standard error: 0.06005 on 200 degrees of freedom
+Multiple R-squared:  0.5107,	Adjusted R-squared:  0.5082 
+F-statistic: 208.7 on 1 and 200 DF,  p-value: < 2.2e-16
 
-[1] "deathsGrowthInitTotal: 20510.9554426668"
-[1] "deathsGrowthRateTotal: 1.0024191573813"
+[1] "deathsGrowthInitTotal: 20523.0424153702"
+[1] "deathsGrowthRateTotal: 1.00241323219707"
 [1] "******************************************************"
 [1] "South Korea"
 [1] "Period: post"
 [1] "deathsRegInitialDate: 2020-03-17"
-[1] "deathsRegFinalDate: 2020-10-24"
+[1] "deathsRegFinalDate: 2020-10-25"
 
 Call:
 lm(formula = deaths_cumulative_log ~ day_model, data = deathsReg)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.33013 -0.02455  0.00535  0.04350  0.07562 
+-0.33011 -0.02450  0.00524  0.04325  0.07562 
 
 Coefficients:
              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 2.195e+00  1.015e-02  216.33   <2e-16 ***
-day_model   1.887e-03  6.852e-05   27.55   <2e-16 ***
+(Intercept) 2.195e+00  1.010e-02   217.4   <2e-16 ***
+day_model   1.888e-03  6.791e-05    27.8   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.06543 on 220 degrees of freedom
-Multiple R-squared:  0.7752,	Adjusted R-squared:  0.7742 
-F-statistic: 758.7 on 1 and 220 DF,  p-value: < 2.2e-16
+Residual standard error: 0.06528 on 221 degrees of freedom
+Multiple R-squared:  0.7776,	Adjusted R-squared:  0.7766 
+F-statistic: 772.7 on 1 and 221 DF,  p-value: < 2.2e-16
 
-[1] "deathsGrowthInitTotal: 156.748913369177"
-[1] "deathsGrowthRateTotal: 1.00435556894443"
+[1] "deathsGrowthInitTotal: 156.739374910109"
+[1] "deathsGrowthRateTotal: 1.00435620120745"
 [1] "******************************************************"
 [1] "Canada"
 [1] "Period: post"
 [1] "deathsRegInitialDate: 2020-04-06"
-[1] "deathsRegFinalDate: 2020-10-24"
+[1] "deathsRegFinalDate: 2020-10-25"
 
 Call:
 lm(formula = deaths_cumulative_log ~ day_model, data = deathsReg)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.90725 -0.10143  0.03961  0.16160  0.21944 
+-0.90901 -0.10201  0.03968  0.16113  0.21928 
 
 Coefficients:
              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 3.3795224  0.0339063   99.67   <2e-16 ***
-day_model   0.0035951  0.0002516   14.29   <2e-16 ***
+(Intercept) 3.3818415  0.0337785   100.1   <2e-16 ***
+day_model   0.0035688  0.0002496    14.3   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.2085 on 200 degrees of freedom
-Multiple R-squared:  0.5052,	Adjusted R-squared:  0.5027 
-F-statistic: 204.2 on 1 and 200 DF,  p-value: < 2.2e-16
+Residual standard error: 0.2084 on 201 degrees of freedom
+Multiple R-squared:  0.5043,	Adjusted R-squared:  0.5018 
+F-statistic: 204.5 on 1 and 201 DF,  p-value: < 2.2e-16
 
-[1] "deathsGrowthInitTotal: 2396.19634844222"
-[1] "deathsGrowthRateTotal: 1.00831246410161"
+[1] "deathsGrowthInitTotal: 2409.02596599044"
+[1] "deathsGrowthRateTotal: 1.00825128113378"
 [1] "******************************************************"
 [1] "Canada - Quebec"
 [1] "Period: post"
 [1] "deathsRegInitialDate: 2020-04-06"
-[1] "deathsRegFinalDate: 2020-10-24"
+[1] "deathsRegFinalDate: 2020-10-25"
 
 Call:
 lm(formula = deaths_cumulative_log ~ day_model, data = deathsReg)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--1.11315 -0.11214  0.04654  0.18616  0.25721 
+    Min      1Q  Median      3Q     Max 
+-1.1153 -0.1131  0.0467  0.1860  0.2570 
 
 Coefficients:
              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 3.1479046  0.0376172   83.68   <2e-16 ***
-day_model   0.0040025  0.0002969   13.48   <2e-16 ***
+(Intercept) 3.1503775  0.0374868   84.04   <2e-16 ***
+day_model   0.0039712  0.0002945   13.48   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.246 on 200 degrees of freedom
-Multiple R-squared:  0.4761,	Adjusted R-squared:  0.4735 
-F-statistic: 181.8 on 1 and 200 DF,  p-value: < 2.2e-16
+Residual standard error: 0.2459 on 201 degrees of freedom
+Multiple R-squared:  0.475,	Adjusted R-squared:  0.4724 
+F-statistic: 181.8 on 1 and 201 DF,  p-value: < 2.2e-16
 
-[1] "deathsGrowthInitTotal: 1405.73865961705"
-[1] "deathsGrowthRateTotal: 1.00925861302504"
+[1] "deathsGrowthInitTotal: 1413.76590689784"
+[1] "deathsGrowthRateTotal: 1.00918587111001"
 [1] "******************************************************"
 [1] "Canada - Ontario"
 [1] "Period: post"
 [1] "deathsRegInitialDate: 2020-04-06"
-[1] "deathsRegFinalDate: 2020-10-24"
+[1] "deathsRegFinalDate: 2020-10-25"
 
 Call:
 lm(formula = deaths_cumulative_log ~ day_model, data = deathsReg)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.80065 -0.09588  0.03343  0.14640  0.18903 
+-0.80215 -0.09582  0.03331  0.14615  0.18894 
 
 Coefficients:
-             Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 2.9625968  0.0288304  102.76   <2e-16 ***
-day_model   0.0031712  0.0002228   14.23   <2e-16 ***
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 2.964437   0.028723  103.21   <2e-16 ***
+day_model   0.003149   0.000221   14.25   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.1847 on 200 degrees of freedom
-Multiple R-squared:  0.5032,	Adjusted R-squared:  0.5007 
-F-statistic: 202.5 on 1 and 200 DF,  p-value: < 2.2e-16
+Residual standard error: 0.1845 on 201 degrees of freedom
+Multiple R-squared:  0.5025,	Adjusted R-squared:    0.5 
+F-statistic:   203 on 1 and 201 DF,  p-value: < 2.2e-16
 
-[1] "deathsGrowthInitTotal: 917.480381114357"
-[1] "deathsGrowthRateTotal: 1.0073287242272"
+[1] "deathsGrowthInitTotal: 921.377160145079"
+[1] "deathsGrowthRateTotal: 1.0072766605927"
 [1] "******************************************************"
 [1] "Canada - Alberta"
 [1] "Period: post"
 [1] "deathsRegInitialDate: 2020-04-06"
-[1] "deathsRegFinalDate: 2020-10-24"
+[1] "deathsRegFinalDate: 2020-10-25"
 
 Call:
 lm(formula = deaths_cumulative_log ~ day_model, data = deathsReg)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.47054 -0.04418  0.01853  0.05760  0.12095 
+-0.47139 -0.04394  0.01852  0.05686  0.12076 
 
 Coefficients:
              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 1.8260334  0.0142635  128.02   <2e-16 ***
-day_model   0.0035315  0.0001166   30.28   <2e-16 ***
+(Intercept) 1.8269661  0.0142177  128.50   <2e-16 ***
+day_model   0.0035189  0.0001157   30.41   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.09666 on 200 degrees of freedom
-Multiple R-squared:  0.8209,	Adjusted R-squared:   0.82 
-F-statistic: 916.8 on 1 and 200 DF,  p-value: < 2.2e-16
+Residual standard error: 0.09661 on 201 degrees of freedom
+Multiple R-squared:  0.8215,	Adjusted R-squared:  0.8206 
+F-statistic: 924.8 on 1 and 201 DF,  p-value: < 2.2e-16
 
-[1] "deathsGrowthInitTotal: 66.9936105671123"
-[1] "deathsGrowthRateTotal: 1.00816467048186"
+[1] "deathsGrowthInitTotal: 67.1376371927577"
+[1] "deathsGrowthRateTotal: 1.00813541303422"
 [1] "******************************************************"
 [1] "Canada - British Columbia"
 [1] "Period: post"
 [1] "deathsRegInitialDate: 2020-04-06"
-[1] "deathsRegFinalDate: 2020-10-24"
+[1] "deathsRegFinalDate: 2020-10-25"
 
 Call:
 lm(formula = deaths_cumulative_log ~ day_model, data = deathsReg)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.39858 -0.03373  0.00279  0.05625  0.10294 
+-0.39913 -0.03292  0.00229  0.05628  0.10282 
 
 Coefficients:
              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 1.943e+00  1.283e-02  151.38   <2e-16 ***
-day_model   2.351e-03  9.586e-05   24.53   <2e-16 ***
+(Intercept) 1.943e+00  1.278e-02  152.10   <2e-16 ***
+day_model   2.343e-03  9.503e-05   24.65   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.07944 on 200 degrees of freedom
-Multiple R-squared:  0.7505,	Adjusted R-squared:  0.7492 
-F-statistic: 601.5 on 1 and 200 DF,  p-value: < 2.2e-16
+Residual standard error: 0.07934 on 201 degrees of freedom
+Multiple R-squared:  0.7515,	Adjusted R-squared:  0.7503 
+F-statistic: 607.8 on 1 and 201 DF,  p-value: < 2.2e-16
 
-[1] "deathsGrowthInitTotal: 87.6249407024591"
-[1] "deathsGrowthRateTotal: 1.00542820454654"
+[1] "deathsGrowthInitTotal: 87.7683033809246"
+[1] "deathsGrowthRateTotal: 1.00540931241029"
 [1] "******************************************************"
