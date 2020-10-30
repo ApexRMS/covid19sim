@@ -391,15 +391,28 @@ generateGrowthScenario  <- function(jur, jurRef) {
     rename(rate=deaths_growth_ma7) %>%
     select(jurisdiction, date, day_model, rate)
 
-  # Now find the earliest day for which reference growth rate <= current actual sampled rate
-  growthRefLowerTest = growthRef %>% filter(rate <= lastRateActualSample)
-  if (nrow(growthRefLowerTest) > 0) {
-    firstDayRef = min(growthRefLowerTest$day_model)
-  } else {
-    # If the reference growth rates all > current actual rate, set reference date to last possible
-    # print("Using last reference day")
-    firstDayRef = max(growthRef$day_model)
-  }
+  # To find the first reference day, find the first day moving forward with a growth rate within 5% of the actual growth rate, but not greater
+  # If none of the days moving forward meet this criteria, repeat the search moving backwards in time
+  # If again there are no results, take the first day with a lower growth rate
+  # Finally, if all reference growth rates > current actual rate, set reference dat to last possible
+
+  # Generate lists to perform search
+  growthRateMatchingError <- 0.05 # Match growth rates within 5%
+  growthRefLowerTest <- growthRef %>% filter(rate <= lastRateActualSample)
+  growthRefStrictTest <- growthRefLowerTest %>%
+    filter(rate >= lateRateActualSample * (1 - growthRateMatchingError))
+  growthRefStrictTestAfter <- growthRefStrictTest %>%
+    filter(day_model >= lastDayActual)
+  growthRefStrictTestBefore <- growthRefStrictTest %>%
+    filter(day_model < lastDayActual)
+
+  # Perform search
+  firstDayRef <- case_when(
+    nrow(growthRefStrictTestAfter) > 0  ~ min(growthRefStrictTestAfter$day_model),
+    nrow(growthRefStrictTestBefore) > 0 ~ max(growthRefStrictTestBefore$day_model),
+    nrow(growthRefLowerTest) > 0        ~ min(growthRefLowerTest$day_model),
+    TRUE                                ~ max(growthRef$day_model)
+  )
   firstDateRef = growthRef$date[growthRef$day_model==firstDayRef]
 
   # Extract all the reference rates that start on this day
