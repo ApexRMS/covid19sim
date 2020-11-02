@@ -400,7 +400,7 @@ generateGrowthScenario  <- function(jur, jurRef) {
   growthRateMatchingError <- 0.05 # Match growth rates within 5%
   growthRefLowerTest <- growthRef %>% filter(rate <= lastRateActualSample)
   growthRefStrictTest <- growthRefLowerTest %>%
-    filter(rate >= lateRateActualSample * (1 - growthRateMatchingError))
+    filter(rate >= lastRateActualSample * (1 - growthRateMatchingError))
   growthRefStrictTestAfter <- growthRefStrictTest %>%
     filter(day_model >= lastDayActual)
   growthRefStrictTestBefore <- growthRefStrictTest %>%
