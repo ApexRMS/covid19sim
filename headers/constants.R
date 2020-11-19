@@ -35,13 +35,13 @@ jurisdictionsGrowthReference = c("Australia", "France", "Italy", "Japan", "South
                                  "United States - California", "United States - Kansas", "United States - Montana", 
                                  "United States - Oregon", "United States - Washington", "United States - Idaho",
                                  "United States - Guam", "United States - Hawaii", "Germany", "Austria", "Greece",
-                                 "Taiwan*", "Thailand", "Tunisia", "Singapore", "Czechia", "Slovenia")
+                                 "Taiwan*", "Thailand", "Tunisia", "Singapore", "Czechia", "Slovenia", "Slovakia")
 jurisdictionsGrowthReferenceCA = c("France", "Italy", "Germany", "Austria")
 jurisdictionsGrowthReferenceQC = c("France", "Italy", "Germany", "Austria")
 jurisdictionsGrowthReferenceON = c("France", "Italy", "Germany", "Austria")
-jurisdictionsGrowthReferenceBC = c("France", "Italy", "Germany", "Austria")
+jurisdictionsGrowthReferenceBC = c("United States - Montana", "United States - Oregon", "Austria", "Greece")
 jurisdictionsGrowthReferenceAB = c("United States - Montana", "Tunisia", "Austria", "Greece")
-jurisdictionsGrowthReferenceMB = c("Tunisia", "United States - Guam", "Czechia")
+jurisdictionsGrowthReferenceMB = c("Tunisia", "Slovakia", "Czechia", "Slovenia")
 jurisdictionsGrowthReferenceNS = c("Taiwan*", "Australia", "Singapore", "Denmark", "Thailand")
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReferenceCA,
