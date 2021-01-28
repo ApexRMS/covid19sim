@@ -82,7 +82,9 @@ fatalityRates = read_csv(paste0(inputFolder, "/", "fatality-rates.csv")) %>%
 #   rename(fatality_cases_mean=mean, fatality_cases_lower=lower, fatality_cases_upper=upper)
 
 # Load Canada mortality data (From https://github.com/ishaberry/Covid19Canada)
-mortalityDataRaw = read_csv(paste0(dataFolder, "/", "mortality.csv"))
+mortalityDataFileNames = list.files(paste0(dataFolder, "/individual_level"),"mortality_20*", full.names = T)
+
+mortalityDataRaw = map_dfr(mortalityDataFileNames, read_csv)
 mortalityDataRaw$province[mortalityDataRaw$province=="NL"] = "Newfoundland and Labrador"
 mortalityDataRaw$province[mortalityDataRaw$province=="BC"] = "British Columbia"
 mortalityDataRaw$province[mortalityDataRaw$province=="NWT"] = "Northwest Territories"
