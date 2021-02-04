@@ -36,12 +36,12 @@ jurisdictionsGrowthReference = c("Australia", "France", "Italy", "Japan", "South
                                  "United States - Oregon", "United States - Washington", "United States - Idaho",
                                  "United States - Guam", "United States - Hawaii", "Germany", "Austria", "Greece",
                                  "Taiwan*", "Thailand", "Tunisia", "Singapore", "Czechia", "Slovenia", "Slovakia")
-jurisdictionsGrowthReferenceCA = c("France", "Italy", "Germany", "Austria")
-jurisdictionsGrowthReferenceQC = c("France", "Italy", "Germany", "Austria")
-jurisdictionsGrowthReferenceON = c("France", "Italy", "Germany", "Austria")
-jurisdictionsGrowthReferenceBC = c("United States - Montana", "Tunisia", "Austria", "Greece")
-jurisdictionsGrowthReferenceAB = c("United States - Montana", "Tunisia", "Austria", "Greece")
-jurisdictionsGrowthReferenceMB = c("Tunisia", "Slovakia", "Czechia", "Slovenia")
+jurisdictionsGrowthReferenceCA = c("France", "Italy", "United States - California", "United States - Washington")
+jurisdictionsGrowthReferenceQC = c("France", "Italy", "United States - California", "United States - Washington")
+jurisdictionsGrowthReferenceON = c("France", "Italy", "United States - California", "United States - Washington")
+jurisdictionsGrowthReferenceBC = c("United States - California", "United States - Kansas", "United States - Montana", "United States - Idaho")
+jurisdictionsGrowthReferenceAB = c("United States - California", "United States - Kansas", "United States - Montana", "United States - Idaho")
+jurisdictionsGrowthReferenceMB = c("United States - California", "United States - Kansas", "France", "Italy")
 jurisdictionsGrowthReferenceNS = c("Taiwan*", "Australia", "Singapore", "Denmark", "Thailand")
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReferenceCA,
