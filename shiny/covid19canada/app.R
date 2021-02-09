@@ -51,14 +51,18 @@ ihmeDates <- read_csv(file="data/ihme-dates.csv") %>% pull
 # Define a function to load in model data as requested by the user
 #   Note super assignment (<<-) used to update global variables
 loadModeledData <- function(modelDate, addIHME = T){
-  if(!(dataLoaded[modelDate])) {
+  if(hasName(dataLoaded, modelDate) & !(dataLoaded[modelDate])) {
     dataLoaded[modelDate] <<- TRUE
-    data <<- read_csv(file= paste0("data/data-", modelDate, ".csv")) %>%
-      mutate(Date = as.Date(Date), date_model_run = as.Date(date_model_run)) %>%
-      mutate(Metric = ordered(Metric, levels=c("Daily Infections", "Daily Deaths", "Cumulative Infections", "Cumulative Deaths"))) %>%
-      mutate(DataTag = ordered(DataTag, level=c("IHME projection", "Apex projection", "Observed"))) %>%
-      bind_rows(data, .)
-
+    file_to_load <- paste0("data/data-", modelDate, ".csv")
+    
+    if(file.exists(file_to_load)) {
+      data <<- read_csv(file = file_to_load) %>%
+        mutate(Date = as.Date(Date), date_model_run = as.Date(date_model_run)) %>%
+        mutate(Metric = ordered(Metric, levels=c("Daily Infections", "Daily Deaths", "Cumulative Infections", "Cumulative Deaths"))) %>%
+        mutate(DataTag = ordered(DataTag, level=c("IHME projection", "Apex projection", "Observed"))) %>%
+        bind_rows(data, .)
+    }
+    
     # Also load the data file that provides the relevant IHME model
     # This can't be done if requesting a forecast prior to the first IHME model date
     if(addIHME && modelDate > ihmeDates[1]) {
@@ -362,8 +366,19 @@ server <- function(input, output) {
     
     # Add error message if data is missing
     if(length(models)>0){
-      
-      if(("Apex" %in% models) && ("IHME" %in% models)){
+      if(nrow(dataSubset %>% filter(date_model_run == input$forecastDate, DataTag == "Apex projection")) == 0) {
+        notes <- data.frame(Metric = ordered(c("Daily Deaths", "Cumulative Deaths"), levels=c("Daily Infections", "Daily Deaths", "Cumulative Infections", "Cumulative Deaths")), x = min(dataSubset$Date))
+        notes$y <- sapply(notes$Metric, function(x) max(max(dataSubset$Upper[which(dataSubset$Metric == x)], na.rm=T), max(dataSubset$Mean[which(dataSubset$Metric == x)], na.rm=T)))
+        plot <- plot +
+          geom_text(data = notes,
+                    aes(x=x, y=y),
+                    color="#7B7B7B",
+                    hjust=0,
+                    vjust=1,
+                    size=0.01,
+                    label = paste0("No Apex projection available for ", input$forecastDate, ".\nPlease select another date."))
+        text <- T
+      } else if(("Apex" %in% models) && ("IHME" %in% models)){
         # If there is no earlier Apex model for the jurisdiction
         if(input$forecastDate < oldestApexdate_juris){
           # If there is no IHME model for the jurisdiction
@@ -585,8 +600,8 @@ server <- function(input, output) {
     
     # Validate
     validate(need(models, 'Select at least one model.'))
-    validate(need(!((nrow(dataSubset_allDates) == 0) && (input$juris %in% data$Jurisdiction[which(data$Source == 'IHME')])), paste0(' \nNo projection available for the selected forecast date, jurisdiction, and model combination. Please select different input parameters.\n \nApex projections for the selected jurisdiction are available starting ', oldestApexdate_juris, '.\n IHME infection projections for the selected jurisdiction are available starting ', oldestIHMEdate_Infections, '.')))
-    validate(need(!(nrow(dataSubset_allDates) == 0), paste0(' \nNo projection available for the selected forecast date, jurisdiction, and model combination. Please select different input parameters.\n \nApex projections for the selected jurisdiction are available starting ', oldestApexdate_juris, '.\n The IHME does not model the selected jurisdiction.')))
+    validate(need(!((nrow(dataSubset_allDates) == 0) && (input$juris %in% data$Jurisdiction[which(data$Source == 'IHME')])), paste0(' \nNo projection available for the selected forecast date, jurisdiction, and model combination. Please select different input parameters.\n \n IHME infection projections for the selected jurisdiction are available starting ', oldestIHMEdate_Infections, '.')))
+    validate(need(!(nrow(dataSubset_allDates) == 0), paste0(' \nNo projection available for the selected forecast date, jurisdiction, and model combination. Please select different input parameters.\n \n The IHME does not model the selected jurisdiction.')))
     validate(need(!(((nrow(dataSubset) == 0) || (length(unique(dataSubset$Date)) == 1))), paste0('No data available for the selected date range. \n Please widen the range of dates considered.')))
     validate(need(!(models=="IHME" && !input$juris %in% data$Jurisdiction[which(data$Source == "IHME")]), 'No IHME projection available for the selected jurisdiction.\nPlease select a different jurisdiction and/or a different model.'))
     validate(need(!(models=="IHME" && input$forecastDate < oldestIHMEdate_Infections), paste('No IHME projection available prior to', oldestIHMEdate_Infections, 'for infections.\nPlease select a different forecast date and/or a different model.')))
@@ -676,7 +691,20 @@ server <- function(input, output) {
     }
     
     # Add error message if data is missing
-    if("IHME" %in% models){
+    if(nrow(dataSubset %>% filter(date_model_run == input$forecastDate, DataTag == "Apex projection")) == 0) {
+      message("here")
+        notes <- data.frame(Metric = ordered(c("Daily Infections", "Cumulative Infections"), levels=c("Daily Infections", "Daily Deaths", "Cumulative Infections", "Cumulative Deaths")), x = min(dataSubset$Date))
+        notes$y <- sapply(notes$Metric, function(x) max(max(dataSubset$Upper[which(dataSubset$Metric == x)], na.rm=T), max(dataSubset$Mean[which(dataSubset$Metric == x)], na.rm=T)))
+        plot <- plot +
+          geom_text(data = notes,
+                    aes(x=x, y=y),
+                    color="#7B7B7B",
+                    hjust=0,
+                    vjust=1,
+                    size=0.01,
+                    label = paste0("No Apex projection available for ", input$forecastDate, ".\nPlease select another date."))
+        text <- T
+      } else if("IHME" %in% models){
       
       # If there is no IHME model for the jurisdiction
       if(!input$juris %in% data$Jurisdiction[which(data$Source == 'IHME')]){
