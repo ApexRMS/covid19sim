@@ -32,17 +32,17 @@ jurisdictionsModel = c("Canada",
 
 # Jurisdictions to be used for reference in the growth rate scenarios
 jurisdictionsGrowthReference = c("Australia", "France", "Italy", "Japan", "South Korea", "United States",
-                                 "United States - California", "United States - Kansas", "United States - Montana", 
-                                 "United States - Oregon", "United States - Washington", "United States - Idaho",
-                                 "United States - Guam", "United States - Hawaii", "Germany", "Austria", "Greece",
-                                 "Taiwan*", "Thailand", "Tunisia", "Singapore", "Czechia", "Slovenia", "Slovakia")
-jurisdictionsGrowthReferenceCA = c("France", "Italy", "United States - California", "United States - Washington")
-jurisdictionsGrowthReferenceQC = c("France", "Italy", "United States - California", "United States - Washington")
-jurisdictionsGrowthReferenceON = c("France", "Italy", "United States - California", "United States - Washington")
-jurisdictionsGrowthReferenceBC = c("United States - California", "United States - Kansas", "United States - Montana", "United States - Idaho")
-jurisdictionsGrowthReferenceAB = c("United States - California", "United States - Kansas", "United States - Montana", "United States - Idaho")
-jurisdictionsGrowthReferenceMB = c("United States - California", "United States - Kansas", "France", "Italy")
-jurisdictionsGrowthReferenceNS = c("Taiwan*", "Australia", "Singapore", "Denmark", "Thailand")
+                                 "United States - California", "United States - Kansas", 
+                                 "United States - Washington", "United States - Idaho",
+                                 "Germany", "Greece", "Thailand", "Singapore", "New Zealand",
+                                 "Argentina", "Bangladesh", "Brazil", "Pakistan")
+jurisdictionsGrowthReferenceCA = c("Argentina", "Pakistan", "Brazil", "Bangladesh")
+jurisdictionsGrowthReferenceQC = c("Argentina", "Pakistan", "Brazil", "Bangladesh")
+jurisdictionsGrowthReferenceON = c("Argentina", "Pakistan", "Brazil", "Bangladesh")
+jurisdictionsGrowthReferenceBC = c("Argentina", "Pakistan", "Brazil", "Bangladesh")
+jurisdictionsGrowthReferenceAB = c("Argentina", "Pakistan", "Brazil", "Bangladesh")
+jurisdictionsGrowthReferenceMB = c("Argentina", "Pakistan", "Brazil", "Bangladesh")
+jurisdictionsGrowthReferenceNS = c("Australia", "Singapore", "Djibouti", "New Zealand")
 
 jurisdictionsGrowthReferenceList = list("Canada" = jurisdictionsGrowthReferenceCA,
                                     "Canada - Alberta" = jurisdictionsGrowthReferenceAB,
