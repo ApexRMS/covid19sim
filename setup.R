@@ -85,7 +85,7 @@ ihmeURLs <- "http://www.healthdata.org/covid/data-downloads" %>%
   read_html %>%                        # Pull html for the downloads page
   html_nodes(css = "a") %>%            # Extract hyperlink tags
   html_attr(name = "href") %>%         # Extract the urls
-  str_subset("2020-.*zip") %>%         # Only keep urls for data archives
+  str_subset("202.*zip") %>%         # Only keep urls for data archives
   set_names(.,                         # Name the urls by the date
             str_extract(., "202\\d-\\d\\d-\\d\\d") %>% # \d matches a digit 
             str_replace_all("-", "_")) # Covert Y-M-D to Y_M_D
