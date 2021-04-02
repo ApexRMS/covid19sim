@@ -55,7 +55,7 @@ if (dir.exists(file.path(tempFolder))) {
 
 # Start a SyncroSim session
 packagePrefix = paste0(packageName, "_")  # Used to reference internal table names in SyncroSim
-mySession = session()
+mySession = rsyncrosim::session()
 
 # Open copy of library to run for output
 myLibrary = ssimLibrary(libraryFileName, session = mySession, package = "epidemic")

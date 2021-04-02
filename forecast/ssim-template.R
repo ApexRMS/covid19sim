@@ -72,7 +72,7 @@ jurisdictions = populationData %>%
 
 # Start a SyncroSim session
 packagePrefix = paste0(packageName, "_")  # Used to reference internal table names in SyncroSim
-mySession = session()  # Uses default session (works on Windows) - otherwise use: session("C:/My SyncroSim install folder")
+mySession = rsyncrosim::session()  # Uses default session (works on Windows) - otherwise use: session("C:/My SyncroSim install folder")
 
 # Create a new library for the SyncroSim epidemic package
 fileName = paste0(templateFolder, "/", libraryName)
